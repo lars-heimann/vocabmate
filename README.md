@@ -1,4 +1,4 @@
-# chatgpt_web
+# vocabmate
 
 A new Flutter project.
 

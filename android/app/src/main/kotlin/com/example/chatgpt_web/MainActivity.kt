@@ -1,4 +1,4 @@
-package com.example.chatgpt_web
+package com.example.vocabmate
 
 import io.flutter.embedding.android.FlutterActivity
 

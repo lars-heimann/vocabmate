@@ -1,6 +1,6 @@
 {
-    "name": "chatgpt_web",
-    "short_name": "chatgpt_web",
+    "name": "vocabmate",
+    "short_name": "vocabmate",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
