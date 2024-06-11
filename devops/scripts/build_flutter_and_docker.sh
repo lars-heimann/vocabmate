@@ -8,19 +8,19 @@ VERSION_FILE="version.txt"
 
 # Check if the version file exists
 if [ ! -f "$VERSION_FILE" ]; then
-    echo "0.0.1" > "$VERSION_FILE"
+    echo "0.0.1" >"$VERSION_FILE"
 fi
 
 # Read the current version
 VERSION=$(cat "$VERSION_FILE")
 
 # Increment the version (simple PATCH increment)
-IFS='.' read -ra ADDR <<< "$VERSION"
+IFS='.' read -ra ADDR <<<"$VERSION"
 if [ ${#ADDR[@]} -eq 3 ]; then
     PATCH=${ADDR[2]}
     MINOR=${ADDR[1]}
     MAJOR=${ADDR[0]}
-    PATCH=$((PATCH+1))
+    PATCH=$((PATCH + 1))
     VERSION="$MAJOR.$MINOR.$PATCH"
 else
     print_error_and_exit "Version format error."
@@ -28,7 +28,7 @@ else
 fi
 
 # Save the new version back to the file
-echo "$VERSION" > "$VERSION_FILE"
+echo "$VERSION" >"$VERSION_FILE"
 
 info "Building Flutter Web App..."
 flutter build web
