@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:flutter/services.dart'; // Import the services package for clipboard
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,6 +80,13 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
   }
 
+  void _copyToClipboard() {
+    Clipboard.setData(ClipboardData(text: _response));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Response copied to clipboard!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,9 +117,18 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             const SizedBox(height: 16.0),
             _isLoading
                 ? const CircularProgressIndicator()
-                : Text(
-                    _response,
-                    style: const TextStyle(fontSize: 16.0),
+                : Column(
+                    children: [
+                      Text(
+                        _response,
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      ElevatedButton(
+                        onPressed: _copyToClipboard,
+                        child: const Text('Copy to Clipboard'),
+                      ),
+                    ],
                   ),
           ],
         ),
