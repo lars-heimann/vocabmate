@@ -73,7 +73,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: _isLoading ? null : _sendMessage,
-              child: const Text('Send'),
+              child: const Text('Generate Flashcards'),
             ),
             const SizedBox(height: 16.0),
             _isLoading

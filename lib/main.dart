@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'pages/flashcard_page.dart';
 import 'pages/home_page.dart';
+import 'widgets/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,7 @@ class VocabMateApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'VocabMate',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: vocabMateTheme,
       initialRoute:
           FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home-page',
       routes: {

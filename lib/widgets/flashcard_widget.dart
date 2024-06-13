@@ -22,7 +22,7 @@ class FlashCardWidget extends StatelessWidget {
                   flex: 3,
                   child: Text(
                     'Q: ${card.question}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 Expanded(
@@ -41,7 +41,10 @@ class FlashCardWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text('A: ${card.answer}'),
+                  child: Text(
+                    'A: ${card.answer}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ),
                 Expanded(
                   flex: 1,

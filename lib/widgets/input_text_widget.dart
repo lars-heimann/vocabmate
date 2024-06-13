@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class InputTextWidget extends StatelessWidget {
   final String inputText;
 
-  const InputTextWidget({Key? key, required this.inputText}) : super(key: key);
+  const InputTextWidget({super.key, required this.inputText});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,14 @@ class InputTextWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Input Text:',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8.0),
             Text(
               inputText,
-              style: const TextStyle(fontSize: 16),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
