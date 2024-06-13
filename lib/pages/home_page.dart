@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocabmate/pages/home_page/about_section.dart';
 import '../../chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
@@ -79,6 +80,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : const Text('Enter a message to generate flashcards'),
+            const AboutSection()
           ],
         ),
       ),

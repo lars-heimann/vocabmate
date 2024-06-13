@@ -116,12 +116,12 @@ class _Content extends StatelessWidget {
           _Title(),
           SizedBox(height: 12),
           Text(
-            "I'm Nils, I study computer science at the Technical University Munich (TUM).",
+            "I'm Lars, I study Information Systems at the University of Münster.",
             style: textStyle,
           ),
           SizedBox(height: 14),
           Text(
-            "The grind of crafting high end flashcards was real, draining hours of my week. So, I decided to shake things up and thus, AnkiGPT was born. It's the ultimate fusion of AI wizardry and savvy study hacks. Dive in, and let's turn learning into an epic win, together.",
+            "The challenge of mastering a new language was daunting, consuming countless hours each week. That's why I created VocabMate. It's the perfect blend of AI magic and smart study techniques designed to revolutionize language learning. Jump in, and let's make your language journey a remarkable success, together.",
             style: textStyle,
           ),
           SizedBox(height: 14),
