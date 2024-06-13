@@ -7,6 +7,8 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'models/flashcard_model.dart';
 import 'widgets/flashcard_widget.dart';
 import 'dart:convert';
+import 'pages/flashcard_page.dart';
+import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,98 +40,8 @@ class VocabMateApp extends StatelessWidget {
               ],
             ),
         '/home-page': (context) => const VocabMateHomePage(),
+        '/flashcard-page': (context) => const FlashCardPage(),
       },
-    );
-  }
-}
-
-class VocabMateHomePage extends StatefulWidget {
-  const VocabMateHomePage({super.key});
-
-  @override
-  _VocabMateHomePageState createState() => _VocabMateHomePageState();
-}
-
-class _VocabMateHomePageState extends State<VocabMateHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  final ChatGptService _chatGptService = ChatGptService();
-  List<FlashCard> _flashCards = [];
-  bool _isLoading = false;
-
-  void _sendMessage() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final response = await _chatGptService.sendMessage(_controller.text);
-      final List<dynamic> jsonResponse = jsonDecode(response);
-      setState(() {
-        _flashCards =
-            jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
-      });
-    } catch (e) {
-      setState(() {
-        _flashCards = [];
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  void _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vocabmate'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: _logout,
-            tooltip: 'Logout',
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _controller,
-              decoration:
-                  const InputDecoration(labelText: 'Enter your message'),
-            ),
-            const SizedBox(height: 8.0),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _sendMessage,
-              child: const Text('Send'),
-            ),
-            const SizedBox(height: 16.0),
-            _isLoading
-                ? const CircularProgressIndicator()
-                : _flashCards.isNotEmpty
-                    ? Expanded(
-                        child: ListView.builder(
-                          itemCount: _flashCards.length,
-                          itemBuilder: (context, index) {
-                            return FlashCardWidget(card: _flashCards[index]);
-                          },
-                        ),
-                      )
-                    : const Text('No flashcards available'),
-          ],
-        ),
-      ),
     );
   }
 }
