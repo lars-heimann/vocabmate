@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:flutter/services.dart'; // Import the services package for clipboard
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,7 +83,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   void _copyToClipboard() {
     Clipboard.setData(ClipboardData(text: _response));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Response copied to clipboard!')),
+      SnackBar(content: Text('Response copied to clipboard!')),
     );
   }
 
@@ -117,19 +117,21 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             const SizedBox(height: 16.0),
             _isLoading
                 ? const CircularProgressIndicator()
-                : Column(
-                    children: [
-                      Text(
-                        _response,
-                        style: const TextStyle(fontSize: 16.0),
-                      ),
-                      const SizedBox(height: 8.0),
-                      ElevatedButton(
-                        onPressed: _copyToClipboard,
-                        child: const Text('Copy to Clipboard'),
-                      ),
-                    ],
-                  ),
+                : _response.isNotEmpty
+                    ? Column(
+                        children: [
+                          Text(
+                            _response,
+                            style: const TextStyle(fontSize: 16.0),
+                          ),
+                          const SizedBox(height: 8.0),
+                          ElevatedButton(
+                            onPressed: _copyToClipboard,
+                            child: const Text('Copy to Clipboard'),
+                          ),
+                        ],
+                      )
+                    : Container(),
           ],
         ),
       ),
