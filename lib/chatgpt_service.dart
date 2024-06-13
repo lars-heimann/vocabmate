@@ -3,30 +3,19 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class ChatGptService {
-  final String apiKey;
-  final String model;
-
-  ChatGptService({required this.apiKey, this.model = 'gpt-3.5-turbo'});
-
   Future<String> sendMessage(String message) async {
     final response = await http.post(
-      Uri.parse('https://api.openai.com/v1/chat/completions'),
+      Uri.parse('http://localhost:3000/generate-anki-cards'),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
       },
-      body: jsonEncode({
-        'model': model,
-        'messages': [
-          {'role': 'user', 'content': message}
-        ],
-        'temperature': 0.7,
-      }),
+      body: jsonEncode({'text': message}),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return data['choices'][0]['message']['content'].trim();
+      // Parse the JSON response into a readable format
+      final List<dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonEncode(jsonResponse); // or format as desired
     } else {
       throw Exception('Failed to load response');
     }
