@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'chatgpt_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'models/flashcard_model.dart';
-import 'widgets/flashcard_widget.dart';
-import 'dart:convert';
 import 'pages/flashcard_page.dart';
 import 'pages/home_page.dart';
 
