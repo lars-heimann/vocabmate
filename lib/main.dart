@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'chatgpt_service.dart';
-import 'config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
@@ -50,10 +49,7 @@ class ChatGptHomePage extends StatefulWidget {
 
 class _ChatGptHomePageState extends State<ChatGptHomePage> {
   final TextEditingController _controller = TextEditingController();
-  final ChatGptService _chatGptService = ChatGptService(
-    apiKey: apiKey,
-    model: 'gpt-3.5-turbo', // Specify the model here
-  );
+  final ChatGptService _chatGptService = ChatGptService();
   String _response = '';
   bool _isLoading = false;
 
@@ -63,7 +59,7 @@ class _ChatGptHomePageState extends State<ChatGptHomePage> {
     });
 
     try {
-      final response = await _chatGptService.sendDummyMessage(_controller.text);
+      final response = await _chatGptService.sendMessage(_controller.text);
       setState(() {
         _response = response;
       });
