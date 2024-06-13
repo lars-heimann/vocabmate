@@ -10,18 +10,18 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ChatGptApp());
+  runApp(const VocabMateApp());
 }
 
-class ChatGptApp extends StatelessWidget {
-  const ChatGptApp({super.key});
+class VocabMateApp extends StatelessWidget {
+  const VocabMateApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     final providers = [EmailAuthProvider()];
 
     return MaterialApp(
-      title: 'ChatGPT Web',
+      title: 'VocabMate',
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute:
           FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home-page',
@@ -34,20 +34,20 @@ class ChatGptApp extends StatelessWidget {
                 }),
               ],
             ),
-        '/home-page': (context) => const ChatGptHomePage(),
+        '/home-page': (context) => const VocabMateHomePage(),
       },
     );
   }
 }
 
-class ChatGptHomePage extends StatefulWidget {
-  const ChatGptHomePage({super.key});
+class VocabMateHomePage extends StatefulWidget {
+  const VocabMateHomePage({super.key});
 
   @override
-  _ChatGptHomePageState createState() => _ChatGptHomePageState();
+  _VocabMateHomePageState createState() => _VocabMateHomePageState();
 }
 
-class _ChatGptHomePageState extends State<ChatGptHomePage> {
+class _VocabMateHomePageState extends State<VocabMateHomePage> {
   final TextEditingController _controller = TextEditingController();
   final ChatGptService _chatGptService = ChatGptService();
   String _response = '';
@@ -83,7 +83,7 @@ class _ChatGptHomePageState extends State<ChatGptHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ChatGPT Web'),
+        title: const Text('Vocabmate'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.exit_to_app),
