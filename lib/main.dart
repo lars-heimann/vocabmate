@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:flutter/services.dart';
+import 'models/flashcard_model.dart';
+import 'widgets/flashcard_widget.dart';
+import 'dart:convert';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +53,7 @@ class VocabMateHomePage extends StatefulWidget {
 class _VocabMateHomePageState extends State<VocabMateHomePage> {
   final TextEditingController _controller = TextEditingController();
   final ChatGptService _chatGptService = ChatGptService();
-  String _response = '';
+  List<FlashCard> _flashCards = [];
   bool _isLoading = false;
 
   void _sendMessage() async {
@@ -61,13 +63,18 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
 
     try {
       final response = await _chatGptService.sendMessage(_controller.text);
+      final List<dynamic> jsonResponse = jsonDecode(response);
       setState(() {
-        _response = response;
+        _flashCards =
+            jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
       });
     } catch (e) {
       setState(() {
-        _response = 'Error: $e';
+        _flashCards = [];
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
     } finally {
       setState(() {
         _isLoading = false;
@@ -78,13 +85,6 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   void _logout() async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
-  }
-
-  void _copyToClipboard() {
-    Clipboard.setData(ClipboardData(text: _response));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Response copied to clipboard!')),
-    );
   }
 
   @override
@@ -117,21 +117,16 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             const SizedBox(height: 16.0),
             _isLoading
                 ? const CircularProgressIndicator()
-                : _response.isNotEmpty
-                    ? Column(
-                        children: [
-                          Text(
-                            _response,
-                            style: const TextStyle(fontSize: 16.0),
-                          ),
-                          const SizedBox(height: 8.0),
-                          ElevatedButton(
-                            onPressed: _copyToClipboard,
-                            child: const Text('Copy to Clipboard'),
-                          ),
-                        ],
+                : _flashCards.isNotEmpty
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemCount: _flashCards.length,
+                          itemBuilder: (context, index) {
+                            return FlashCardWidget(card: _flashCards[index]);
+                          },
+                        ),
                       )
-                    : Container(),
+                    : const Text('No flashcards available'),
           ],
         ),
       ),
