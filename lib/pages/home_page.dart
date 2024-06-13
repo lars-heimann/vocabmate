@@ -27,7 +27,11 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
       final List<FlashCard> flashCards =
           jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
 
-      Navigator.pushNamed(context, '/flashcard-page', arguments: flashCards);
+      Navigator.pushNamed(
+        context,
+        '/flashcard-page',
+        arguments: {'inputText': _controller.text, 'flashCards': flashCards},
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),

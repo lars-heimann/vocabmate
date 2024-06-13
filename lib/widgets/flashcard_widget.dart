@@ -4,7 +4,7 @@ import '../models/flashcard_model.dart';
 class FlashCardWidget extends StatelessWidget {
   final FlashCard card;
 
-  const FlashCardWidget({Key? key, required this.card}) : super(key: key);
+  const FlashCardWidget({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
