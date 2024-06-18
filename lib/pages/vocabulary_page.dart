@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../services/vocabulary_service.dart';
+import '../models/flashcard_model.dart';
+import '../widgets/flashcard_widget.dart';
 
 class VocabularyPage extends StatelessWidget {
   const VocabularyPage({super.key});
 
-  Future<List<String>> _fetchVocabulary(BuildContext context) async {
+  Future<List<FlashCard>> _fetchFlashcards(BuildContext context) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -14,7 +16,7 @@ class VocabularyPage extends StatelessWidget {
       return [];
     }
     try {
-      return await VocabularyService().fetchVocabulary(userId);
+      return await VocabularyService().fetchFlashcards(userId);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
@@ -30,8 +32,8 @@ class VocabularyPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: FutureBuilder<List<String>>(
-          future: _fetchVocabulary(context),
+        child: FutureBuilder<List<FlashCard>>(
+          future: _fetchFlashcards(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -39,23 +41,14 @@ class VocabularyPage extends StatelessWidget {
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
-            final vocabulary = snapshot.data ?? [];
-            if (vocabulary.isEmpty) {
-              return const Center(child: Text('No vocabulary found.'));
+            final flashcards = snapshot.data ?? [];
+            if (flashcards.isEmpty) {
+              return const Center(child: Text('No flashcards found.'));
             }
             return ListView.builder(
-              itemCount: vocabulary.length,
+              itemCount: flashcards.length,
               itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      vocabulary[index],
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                );
+                return FlashCardWidget(card: flashcards[index]);
               },
             );
           },
