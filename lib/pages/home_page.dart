@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabmate/pages/home_page/about_section.dart';
-import '../../chatgpt_service.dart';
+import '../services/chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
 import 'dart:convert';
@@ -49,6 +49,10 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
   }
 
+  void _navigateToVocabulary() {
+    Navigator.pushNamed(context, '/vocabulary-page');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +63,11 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             icon: const Icon(Icons.exit_to_app),
             onPressed: _logout,
             tooltip: 'Logout',
+          ),
+          IconButton(
+            icon: const Icon(Icons.book),
+            onPressed: _navigateToVocabulary,
+            tooltip: 'Known Words',
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocabmate/pages/vocabulary_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -39,6 +40,7 @@ class VocabMateApp extends StatelessWidget {
             ),
         '/home-page': (context) => const VocabMateHomePage(),
         '/flashcard-page': (context) => const FlashCardPage(),
+        '/vocabulary-page': (context) => const VocabularyPage(),
       },
     );
   }
