@@ -15,14 +15,25 @@ class FlashCardWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              '${card.vocabWord} — ${card.vocabMeaning}',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+            ),
+            const Divider(
+              height: 20,
+              thickness: 1,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 3,
                   child: Text(
-                    'Q: ${card.question}',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    'Question: ${card.question}',
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 Expanded(
@@ -42,8 +53,8 @@ class FlashCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Text(
-                    'A: ${card.answer}',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    'Answer: ${card.answer}',
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 Expanded(
