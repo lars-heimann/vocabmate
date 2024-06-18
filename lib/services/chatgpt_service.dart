@@ -41,4 +41,33 @@ class ChatGptService {
     // Return the randomly selected message
     return dummyMessages[index];
   }
+
+  Future<String> generateTestFlashcards() async {
+    // Return a dummy JSON response
+    final List<Map<String, dynamic>> dummyFlashcards = [
+      {
+        "index": 1,
+        "question":
+            "What is the meaning of 'Milch' in the context of 'Ich trinke Milch'?",
+        "answer": "The meaning/translation of 'Milch' is milk.",
+        "vocabulary_language": "German",
+        "explanation_language": "English",
+        "vocab_word": "Milch",
+        "vocab_meaning": "milk"
+      },
+      {
+        "index": 2,
+        "question":
+            "What is the meaning of 'Hund' in the context of 'Der Hund bellt'?",
+        "answer": "The meaning/translation of 'Hund' is dog.",
+        "vocabulary_language": "German",
+        "explanation_language": "English",
+        "vocab_word": "Hund",
+        "vocab_meaning": "dog"
+      },
+      // Add more dummy flashcards as needed
+    ];
+
+    return jsonEncode(dummyFlashcards);
+  }
 }

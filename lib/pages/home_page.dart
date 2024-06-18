@@ -56,6 +56,33 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
   }
 
+  void _generateTestFlashcards() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await _chatGptService.generateTestFlashcards();
+      final List<dynamic> jsonResponse = jsonDecode(response);
+      final List<FlashCard> flashCards =
+          jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
+
+      Navigator.pushNamed(
+        context,
+        '/flashcard-page',
+        arguments: {'inputText': 'Test input text', 'flashCards': flashCards},
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   void _logout() async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
@@ -96,6 +123,11 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             ElevatedButton(
               onPressed: _isLoading ? null : _sendMessage,
               child: const Text('Generate Flashcards'),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _generateTestFlashcards,
+              child: const Text('Generate Test Flashcards'),
             ),
             const SizedBox(height: 16.0),
             _isLoading
