@@ -3,21 +3,21 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class ChatGptService {
-  Future<String> sendMessage(String message) async {
+  Future<String> sendMessage(String userId, String message) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/generate-anki-cards'),
+      Uri.parse('http://localhost:3000/generate-anki-cards-with-known-words'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'text': message}),
+      body: jsonEncode({'userId': userId, 'text': message}),
     );
 
     if (response.statusCode == 200) {
       // Parse the JSON response into a readable format
-      final List<dynamic> jsonResponse = jsonDecode(response.body);
+      final jsonResponse = jsonDecode(response.body);
       return jsonEncode(jsonResponse); // or format as desired
     } else {
-      throw Exception('Failed to load response');
+      throw Exception('Failed to load response: ${response.body}');
     }
   }
 

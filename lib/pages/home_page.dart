@@ -22,8 +22,20 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
       _isLoading = true;
     });
 
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User not logged in')),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
     try {
-      final response = await _chatGptService.sendMessage(_controller.text);
+      final response =
+          await _chatGptService.sendMessage(userId, _controller.text);
       final List<dynamic> jsonResponse = jsonDecode(response);
       final List<FlashCard> flashCards =
           jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
