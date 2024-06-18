@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/vocabulary_service.dart';
 import '../models/flashcard_model.dart';
 import '../widgets/flashcard_widget.dart';
+import '../widgets/vocabulary_widget.dart';
 
 class VocabularyPage extends StatefulWidget {
   const VocabularyPage({super.key});
@@ -44,7 +45,12 @@ class _VocabularyPageState extends State<VocabularyPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Show Full Flashcards'),
+                Expanded(
+                  child: Text(
+                    'Show Full Flashcards',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
                 Switch(
                   value: _showFullCards,
                   onChanged: (value) {
@@ -74,29 +80,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
                     itemBuilder: (context, index) {
                       return _showFullCards
                           ? FlashCardWidget(card: flashcards[index])
-                          : Card(
-                              margin: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Vocab Word: ${flashcards[index].vocabWord}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                    Text(
-                                      'Meaning: ${flashcards[index].vocabMeaning}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                          : VocabularyWidget(card: flashcards[index]);
                     },
                   );
                 },
