@@ -36,13 +36,6 @@ class FlashCardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FlashCards'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.copy),
-            onPressed: () => _copyCsvToClipboard(context, flashCards),
-            tooltip: 'Copy CSV to Clipboard',
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -50,6 +43,17 @@ class FlashCardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InputTextWidget(inputText: inputText),
+            const SizedBox(
+                height:
+                    8.0), // Add some space between the input text and the button
+            ElevatedButton.icon(
+              icon: Icon(Icons.copy),
+              label: Text('Copy CSV to Clipboard'),
+              onPressed: () => _copyCsvToClipboard(context, flashCards),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+            ),
             const Divider(height: 32.0),
             Expanded(
               child: ListView.builder(
