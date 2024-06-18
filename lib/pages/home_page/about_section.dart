@@ -165,24 +165,15 @@ class _SocialMedias extends StatelessWidget {
     return const Row(
       children: [
         SocialMediaIconButton(
-          url: 'https://github.com/nilsreichardt',
+          url: 'https://github.com/lars0530/',
           platform: SocialMediaPlatform.github,
         ),
         SizedBox(width: 12),
         SocialMediaIconButton(
-          url: 'https://www.linkedin.com/in/nilsreichardt',
+          url: 'https://www.linkedin.com/in/larsheimann/',
           platform: SocialMediaPlatform.linkedin,
         ),
         SizedBox(width: 12),
-        SocialMediaIconButton(
-          url: 'https://instagram.com/nils.reichardt',
-          platform: SocialMediaPlatform.instagram,
-        ),
-        SizedBox(width: 12),
-        SocialMediaIconButton(
-          url: 'https://twitter.com/nilsreichardt',
-          platform: SocialMediaPlatform.twitter,
-        ),
       ],
     );
   }
