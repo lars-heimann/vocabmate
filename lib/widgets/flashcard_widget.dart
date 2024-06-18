@@ -28,7 +28,7 @@ class FlashCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    card.vocabulary_language,
+                    card.vocabularyLanguage,
                     style: const TextStyle(color: Colors.grey),
                     textAlign: TextAlign.right,
                   ),
@@ -49,7 +49,7 @@ class FlashCardWidget extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    card.explanation_language,
+                    card.explanationLanguage,
                     style: const TextStyle(color: Colors.grey),
                     textAlign: TextAlign.right,
                   ),

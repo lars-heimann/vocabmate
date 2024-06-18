@@ -17,8 +17,8 @@ String generateCsv(List<FlashCard> flashCards) {
       flashCard.index.toString(),
       flashCard.question,
       flashCard.answer,
-      flashCard.vocabulary_language,
-      flashCard.explanation_language,
+      flashCard.vocabularyLanguage,
+      flashCard.explanationLanguage,
     ]);
   }
 

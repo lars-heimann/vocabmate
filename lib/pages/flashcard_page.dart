@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import for Clipboard functionality
 import '../models/flashcard_model.dart';
 import '../widgets/flashcard_widget.dart';
 import '../widgets/input_text_widget.dart';
@@ -15,7 +14,7 @@ class FlashCardPage extends StatelessWidget {
     // Use the web clipboard API to copy the CSV string to the clipboard
     html.window.navigator.clipboard?.writeText(csvString).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
             content: Text(
                 'CSV copied to clipboard. Paste it in a CSV file to save.')),
       );
@@ -47,11 +46,12 @@ class FlashCardPage extends StatelessWidget {
                 height:
                     8.0), // Add some space between the input text and the button
             ElevatedButton.icon(
-              icon: Icon(Icons.copy),
-              label: Text('Copy CSV to Clipboard'),
+              icon: const Icon(Icons.copy),
+              label: const Text('Copy CSV to Clipboard'),
               onPressed: () => _copyCsvToClipboard(context, flashCards),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
             const Divider(height: 32.0),

@@ -2,15 +2,15 @@ class FlashCard {
   final int index;
   final String question;
   final String answer;
-  final String vocabulary_language;
-  final String explanation_language;
+  final String vocabularyLanguage;
+  final String explanationLanguage;
 
   FlashCard({
     required this.index,
     required this.question,
     required this.answer,
-    required this.vocabulary_language,
-    required this.explanation_language,
+    required this.vocabularyLanguage,
+    required this.explanationLanguage,
   });
 
   factory FlashCard.fromJson(Map<String, dynamic> json) {
@@ -18,8 +18,8 @@ class FlashCard {
       index: json['index'],
       question: json['question'],
       answer: json['answer'],
-      vocabulary_language: json['vocabulary_language'],
-      explanation_language: json['explanation_language'],
+      vocabularyLanguage: json['vocabulary_language'],
+      explanationLanguage: json['explanation_language'],
     );
   }
 }
