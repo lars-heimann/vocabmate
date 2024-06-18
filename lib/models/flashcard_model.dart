@@ -28,4 +28,16 @@ class FlashCard {
       vocabMeaning: json['vocab_meaning'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'index': index,
+      'question': question,
+      'answer': answer,
+      'vocabulary_language': vocabularyLanguage,
+      'explanation_language': explanationLanguage,
+      'vocab_word': vocabWord,
+      'vocab_meaning': vocabMeaning,
+    };
+  }
 }

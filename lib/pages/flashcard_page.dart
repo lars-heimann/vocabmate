@@ -4,6 +4,8 @@ import '../widgets/flashcard_widget.dart';
 import '../widgets/input_text_widget.dart';
 import '../utils/csv_utils.dart';
 import 'dart:html' as html; // Import for web clipboard access
+import '../services/flashcard_service.dart'; // Import the service
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FlashCardPage extends StatelessWidget {
   const FlashCardPage({super.key});
@@ -23,6 +25,31 @@ class FlashCardPage extends StatelessWidget {
         SnackBar(content: Text('Failed to copy CSV to clipboard: $err')),
       );
     });
+  }
+
+  Future<void> _saveFlashcards(
+      BuildContext context, List<FlashCard> flashCards) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User not logged in')),
+      );
+      return;
+    }
+
+    final flashcardService = FlashcardService();
+
+    try {
+      final flashcardsData = flashCards.map((card) => card.toJson()).toList();
+      await flashcardService.addFlashcards(userId, flashcardsData);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Flashcards saved successfully!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving flashcards: $e')),
+      );
+    }
   }
 
   @override
@@ -49,6 +76,16 @@ class FlashCardPage extends StatelessWidget {
               icon: const Icon(Icons.copy),
               label: const Text('Copy CSV to Clipboard'),
               onPressed: () => _copyCsvToClipboard(context, flashCards),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.save),
+              label: const Text('Save Flashcards to Database'),
+              onPressed: () => _saveFlashcards(context, flashCards),
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
