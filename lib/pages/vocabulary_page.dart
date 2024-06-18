@@ -5,7 +5,7 @@ import '../services/vocabulary_service.dart';
 class VocabularyPage extends StatelessWidget {
   const VocabularyPage({super.key});
 
-  Future<List<String>> _fetchKnownWords(BuildContext context) async {
+  Future<List<String>> _fetchVocabulary(BuildContext context) async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -26,12 +26,12 @@ class VocabularyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Known Words'),
+        title: const Text('Vocabulary'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: FutureBuilder<List<String>>(
-          future: _fetchKnownWords(context),
+          future: _fetchVocabulary(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -39,19 +39,19 @@ class VocabularyPage extends StatelessWidget {
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
-            final knownWords = snapshot.data ?? [];
-            if (knownWords.isEmpty) {
-              return const Center(child: Text('No known words found.'));
+            final vocabulary = snapshot.data ?? [];
+            if (vocabulary.isEmpty) {
+              return const Center(child: Text('No vocabulary found.'));
             }
             return ListView.builder(
-              itemCount: knownWords.length,
+              itemCount: vocabulary.length,
               itemBuilder: (context, index) {
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      knownWords[index],
+                      vocabulary[index],
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),

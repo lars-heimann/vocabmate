@@ -67,7 +67,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
           IconButton(
             icon: const Icon(Icons.book),
             onPressed: _navigateToVocabulary,
-            tooltip: 'Known Words',
+            tooltip: 'Vocabulary',
           ),
         ],
       ),
