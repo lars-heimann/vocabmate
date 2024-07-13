@@ -198,8 +198,9 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             const SizedBox(height: 8.0),
             TextField(
               controller: _controller,
-              decoration:
-                  const InputDecoration(labelText: 'Enter your message'),
+              decoration: const InputDecoration(
+                  labelText:
+                      'Enter a text you want to be able to read. We will automatically generate the relevant flashcards for you.'),
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
@@ -216,10 +217,6 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
               onPressed: _isLoading ? null : _makeUserNotPremium,
               child: const Text('Make User Not Premium'),
             ),
-            const SizedBox(height: 16.0),
-            _isLoading
-                ? const CircularProgressIndicator()
-                : const Text('Enter a message to generate flashcards'),
             const AboutSection()
           ],
         ),
