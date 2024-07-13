@@ -8,6 +8,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'pages/flashcard_page.dart';
 import 'pages/home_page.dart';
 import 'widgets/theme.dart';
+import 'services/user_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,11 @@ class VocabMateApp extends StatelessWidget {
               providers: providers,
               actions: [
                 AuthStateChangeAction<SignedIn>((context, state) {
+                  // Sync user with the backend
+                  final user = state.user;
+                  if (user != null) {
+                    UserService().syncUser(user.uid, user.email!);
+                  }
                   Navigator.pushReplacementNamed(context, '/home-page');
                 }),
               ],
