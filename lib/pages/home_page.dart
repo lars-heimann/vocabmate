@@ -26,24 +26,19 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     _fetchPremiumStatus();
   }
 
-  Future<void> _fetchPremiumStatus() async {
+  void _fetchPremiumStatus() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User not logged in')),
-      );
-      return;
-    }
-
-    try {
-      final isPremium = await _userService.checkPremiumStatus(userId);
-      setState(() {
-        _isPremium = isPremium;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+    if (userId != null) {
+      try {
+        final isPremium = await _userService.isPremium(userId);
+        setState(() {
+          _isPremium = isPremium;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error retrieving premium status: $e')),
+        );
+      }
     }
   }
 
@@ -86,16 +81,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
   }
 
-  void _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
-  }
-
-  void _navigateToVocabulary() {
-    Navigator.pushNamed(context, '/vocabulary-page');
-  }
-
-  void _upgradeToPremium() async {
+  void _makeUserPremium() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -105,18 +91,51 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
 
     try {
-      await _userService.updateUserToPremium(userId);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Upgraded to premium successfully')),
-      );
+      await _userService.upgradeToPremium(userId);
       setState(() {
         _isPremium = true;
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User is now premium.')),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
+        SnackBar(content: Text('Error making user premium: $e')),
       );
     }
+  }
+
+  void _makeUserNotPremium() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User not logged in')),
+      );
+      return;
+    }
+
+    try {
+      await _userService.downgradeToFree(userId);
+      setState(() {
+        _isPremium = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User is no longer premium.')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error making user not premium: $e')),
+      );
+    }
+  }
+
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
+  }
+
+  void _navigateToVocabulary() {
+    Navigator.pushNamed(context, '/vocabulary-page');
   }
 
   @override
@@ -141,25 +160,11 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            if (_isPremium)
-              const Text(
-                'PREMIUM USER',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              )
-            else
-              const Text(
-                'Free User',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            const SizedBox(height: 16.0),
+            Text(
+              _isPremium ? 'PREMIUM' : 'Not Premium',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8.0),
             TextField(
               controller: _controller,
               decoration:
@@ -172,8 +177,13 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
-              onPressed: _upgradeToPremium,
-              child: const Text('Upgrade to Premium'),
+              onPressed: _isLoading ? null : _makeUserPremium,
+              child: const Text('Make User Premium'),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: _isLoading ? null : _makeUserNotPremium,
+              child: const Text('Make User Not Premium'),
             ),
             const SizedBox(height: 16.0),
             _isLoading
