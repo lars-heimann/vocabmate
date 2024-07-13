@@ -19,6 +19,12 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   final UserService _userService = UserService();
   bool _isLoading = false;
   bool _isPremium = false;
+  String _selectedModel = 'gpt-3.5-turbo-0125';
+
+  final List<Map<String, String>> _availableModels = [
+    {'display': 'gpt-3.5', 'model': 'gpt-3.5-turbo-0125'},
+    {'display': 'gpt-4', 'model': 'gpt-4o'},
+  ];
 
   @override
   void initState() {
@@ -33,6 +39,9 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
         final isPremium = await _userService.isPremium(userId);
         setState(() {
           _isPremium = isPremium;
+          if (!_isPremium && _selectedModel == 'gpt-4o') {
+            _selectedModel = 'gpt-3.5-turbo-0125';
+          }
         });
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -59,8 +68,8 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
 
     try {
-      final response =
-          await _chatGptService.sendMessage(userId, _controller.text);
+      final response = await _chatGptService.sendMessage(
+          userId, _controller.text, _selectedModel);
       final List<dynamic> jsonResponse = jsonDecode(response);
       final List<FlashCard> flashCards =
           jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
@@ -163,6 +172,28 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
             Text(
               _isPremium ? 'PREMIUM' : 'Not Premium',
               style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8.0),
+            DropdownButton<String>(
+              value: _selectedModel,
+              onChanged: (String? newValue) {
+                if (newValue == 'gpt-4o' && !_isPremium) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Upgrade to premium to use GPT-4')),
+                  );
+                  return;
+                }
+                setState(() {
+                  _selectedModel = newValue!;
+                });
+              },
+              items: _availableModels.map<DropdownMenuItem<String>>((model) {
+                return DropdownMenuItem<String>(
+                  value: model['model'],
+                  child: Text(model['display']!),
+                );
+              }).toList(),
             ),
             const SizedBox(height: 8.0),
             TextField(

@@ -3,13 +3,15 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class ChatGptService {
-  Future<String> sendMessage(String userId, String message) async {
+  Future<String> sendMessage(
+      String userId, String message, String model) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/generate-anki-cards-with-known-words'),
+      Uri.parse('http://localhost:3000/generate-anki-cards'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'userId': userId, 'text': message}),
+      body:
+          jsonEncode({'firebase_uid': userId, 'text': message, 'model': model}),
     );
 
     if (response.statusCode == 200) {
