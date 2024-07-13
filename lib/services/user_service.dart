@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class UserService {
   Future<void> syncUser(String firebaseUid, String email) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/sync-user'),
+      Uri.parse('http://localhost:3000/user/sync-user'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,7 +18,7 @@ class UserService {
 
   Future<void> upgradeToPremium(String firebaseUid) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/upgrade-to-premium'),
+      Uri.parse('http://localhost:3000/user/upgrade-to-premium'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -32,7 +32,7 @@ class UserService {
 
   Future<void> downgradeToFree(String firebaseUid) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/downgrade-to-free'),
+      Uri.parse('http://localhost:3000/user/downgrade-to-free'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -46,7 +46,7 @@ class UserService {
 
   Future<bool> isPremium(String firebaseUid) async {
     final response = await http
-        .get(Uri.parse('http://localhost:3000/is-premium/$firebaseUid'));
+        .get(Uri.parse('http://localhost:3000/user/is-premium/$firebaseUid'));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
