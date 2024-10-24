@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vocabmate/pages/home_page/about_section.dart';
 import 'package:vocabmate/pages/home_page/app_bar.dart';
+import 'package:vocabmate/pages/home_page/faq_section.dart';
 import 'package:vocabmate/pages/home_page/input_section.dart';
+import 'package:vocabmate/pages/home_page/pricing_section.dart';
 import 'package:vocabmate/widgets/footer.dart';
 import '../services/chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
-import 'package:vocabmate/widgets/theme.dart';
 import 'dart:convert';
 
 class VocabMateHomePage extends StatefulWidget {
@@ -124,12 +125,15 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
                         onPressed: _isLoading ? null : _generateTestFlashcards,
                         child: const Text('Generate Test Flashcards'),
                       ),
-                      const SizedBox(height: 100),
                       // _isLoading
                       //     ? const CircularProgressIndicator()
                       //     : const Text('Enter a message to generate flashcards'),
                       const SizedBox(height: 100),
-                      const AboutSection()
+                      const PricingSection(),
+                      const SizedBox(height: 100),
+                      const AboutSection(),
+                      const SizedBox(height: 100),
+                      const FaqSection(),
                     ],
                   ),
                 ),

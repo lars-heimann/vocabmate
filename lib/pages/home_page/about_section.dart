@@ -1,9 +1,9 @@
-import '../../widgets/ankigpt_card.dart';
-import '../../widgets/extensions.dart';
-import '../../widgets/max_width_constrained_box.dart';
-import '../../widgets/section_title.dart';
-import '../../widgets/social_media_icon_button.dart';
-import '../../providers/home_page_scroll_view.dart';
+import 'package:vocabmate/widgets/ankigpt_card.dart';
+import 'package:vocabmate/widgets/extensions.dart';
+import 'package:vocabmate/widgets/max_width_constrained_box.dart';
+import 'package:vocabmate/widgets/section_title.dart';
+import 'package:vocabmate/widgets/social_media_icon_button.dart';
+import 'package:vocabmate/providers/home_page_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

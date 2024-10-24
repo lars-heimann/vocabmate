@@ -1,12 +1,11 @@
 import 'dart:math';
 
+import 'package:vocabmate/providers/home_page_scroll_view.dart';
 import 'package:vocabmate/widgets/input_text_field.dart';
-import '../../widgets/max_width_constrained_box.dart';
-import '../../widgets/section_title.dart';
-import '../../providers/home_page_scroll_view.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocabmate/widgets/max_width_constrained_box.dart';
 
 class InputSection extends ConsumerWidget {
   const InputSection({super.key});
