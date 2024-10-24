@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vocabmate/pages/home_page/about_section.dart';
+import 'package:vocabmate/pages/home_page/app_bar.dart';
 import 'package:vocabmate/pages/home_page/input_section.dart';
+import 'package:vocabmate/widgets/footer.dart';
 import '../services/chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
@@ -96,44 +98,45 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vocabmate'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: _logout,
-            tooltip: 'Logout',
-          ),
-          IconButton(
-            icon: const Icon(Icons.book),
-            onPressed: _navigateToVocabulary,
-            tooltip: 'Vocabulary',
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const InputSection(),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _sendMessage,
-              child: const Text('Generate Flashcards'),
+    return SelectionArea(
+      child: Scaffold(
+        appBar: const HomePageAppBar(),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: [
+                // Wrapping the widgets around a ConstrainedBox always show the
+                // footer at the bottom of the page.
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height,
+                  ),
+                  child: Column(
+                    children: [
+                      const InputSection(),
+                      const SizedBox(height: 50),
+                      ElevatedButton(
+                        onPressed: _isLoading ? null : _sendMessage,
+                        child: const Text('Generate Flashcards'),
+                      ),
+                      const SizedBox(height: 100),
+                      ElevatedButton(
+                        onPressed: _isLoading ? null : _generateTestFlashcards,
+                        child: const Text('Generate Test Flashcards'),
+                      ),
+                      const SizedBox(height: 100),
+                      // _isLoading
+                      //     ? const CircularProgressIndicator()
+                      //     : const Text('Enter a message to generate flashcards'),
+                      const SizedBox(height: 100),
+                      const AboutSection()
+                    ],
+                  ),
+                ),
+                const Footer(),
+              ],
             ),
-            const SizedBox(height: 100),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _generateTestFlashcards,
-              child: const Text('Generate Test Flashcards'),
-            ),
-            const SizedBox(height: 100),
-            // _isLoading
-            //     ? const CircularProgressIndicator()
-            //     : const Text('Enter a message to generate flashcards'),
-            const SizedBox(height: 100),
-            const AboutSection()
-          ],
+          ),
         ),
       ),
     );
