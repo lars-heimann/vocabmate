@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabmate/pages/home_page/about_section.dart';
+import 'package:vocabmate/pages/home_page/input_section.dart';
 import '../services/chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
+import 'package:vocabmate/widgets/theme.dart';
 import 'dart:convert';
 
 class VocabMateHomePage extends StatefulWidget {
@@ -114,25 +116,22 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              controller: _controller,
-              decoration:
-                  const InputDecoration(labelText: 'Enter your message'),
-            ),
-            const SizedBox(height: 8.0),
+            const InputSection(),
+            const SizedBox(height: 50),
             ElevatedButton(
               onPressed: _isLoading ? null : _sendMessage,
               child: const Text('Generate Flashcards'),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 100),
             ElevatedButton(
               onPressed: _isLoading ? null : _generateTestFlashcards,
               child: const Text('Generate Test Flashcards'),
             ),
-            const SizedBox(height: 16.0),
-            _isLoading
-                ? const CircularProgressIndicator()
-                : const Text('Enter a message to generate flashcards'),
+            const SizedBox(height: 100),
+            // _isLoading
+            //     ? const CircularProgressIndicator()
+            //     : const Text('Enter a message to generate flashcards'),
+            const SizedBox(height: 100),
             const AboutSection()
           ],
         ),
