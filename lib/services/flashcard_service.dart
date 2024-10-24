@@ -3,14 +3,14 @@ import 'package:http/http.dart' as http;
 
 class FlashcardService {
   Future<void> addFlashcards(
-      String userId, List<Map<String, dynamic>> flashcards) async {
+      String firebase_uid, List<Map<String, dynamic>> flashcards) async {
     final response = await http.post(
       Uri.parse('http://localhost:3000/add-flashcards'),
       headers: {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
-        'userId': userId,
+        'firebase_uid': firebase_uid,
         'flashcards': flashcards,
       }),
     );

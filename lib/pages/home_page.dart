@@ -33,10 +33,10 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   }
 
   void _fetchPremiumStatus() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId != null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid != null) {
       try {
-        final isPremium = await _userService.isPremium(userId);
+        final isPremium = await _userService.isPremium(firebase_uid);
         setState(() {
           _isPremium = isPremium;
           if (!_isPremium && _selectedModel == 'gpt-4o') {
@@ -56,8 +56,8 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
       _isLoading = true;
     });
 
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User not logged in')),
       );
@@ -69,7 +69,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
 
     try {
       final response = await _chatGptService.sendMessage(
-          userId, _controller.text, _selectedModel);
+          firebase_uid, _controller.text, _selectedModel);
       final List<dynamic> jsonResponse = jsonDecode(response);
       final List<FlashCard> flashCards =
           jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
@@ -91,8 +91,8 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   }
 
   void _makeUserPremium() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User not logged in')),
       );
@@ -100,7 +100,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
 
     try {
-      await _userService.upgradeToPremium(userId);
+      await _userService.upgradeToPremium(firebase_uid);
       setState(() {
         _isPremium = true;
       });
@@ -115,8 +115,8 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
   }
 
   void _makeUserNotPremium() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User not logged in')),
       );
@@ -124,7 +124,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     }
 
     try {
-      await _userService.downgradeToFree(userId);
+      await _userService.downgradeToFree(firebase_uid);
       setState(() {
         _isPremium = false;
       });

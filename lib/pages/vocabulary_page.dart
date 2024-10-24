@@ -16,15 +16,15 @@ class _VocabularyPageState extends State<VocabularyPage> {
   bool _showFullCards = true;
 
   Future<List<FlashCard>> _fetchFlashcards(BuildContext context) async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User not logged in')),
       );
       return [];
     }
     try {
-      return await VocabularyService().fetchFlashcards(userId);
+      return await VocabularyService().fetchFlashcards(firebase_uid);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));

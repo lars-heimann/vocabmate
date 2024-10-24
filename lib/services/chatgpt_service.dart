@@ -4,14 +4,14 @@ import 'package:http/http.dart' as http;
 
 class ChatGptService {
   Future<String> sendMessage(
-      String userId, String message, String model) async {
+      String firebase_uid, String message, String model) async {
     final response = await http.post(
       Uri.parse('http://localhost:3000/generate-anki-cards'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body:
-          jsonEncode({'firebase_uid': userId, 'text': message, 'model': model}),
+      body: jsonEncode(
+          {'firebase_uid': firebase_uid, 'text': message, 'model': model}),
     );
 
     if (response.statusCode == 200) {

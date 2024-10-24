@@ -29,8 +29,8 @@ class FlashCardPage extends StatelessWidget {
 
   Future<void> _saveFlashcards(
       BuildContext context, List<FlashCard> flashCards) async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
+    final firebase_uid = FirebaseAuth.instance.currentUser?.uid;
+    if (firebase_uid == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('User not logged in')),
       );
@@ -41,7 +41,7 @@ class FlashCardPage extends StatelessWidget {
 
     try {
       final flashcardsData = flashCards.map((card) => card.toJson()).toList();
-      await flashcardService.addFlashcards(userId, flashcardsData);
+      await flashcardService.addFlashcards(firebase_uid, flashcardsData);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Flashcards saved successfully!')),
       );
