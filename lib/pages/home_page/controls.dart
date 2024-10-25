@@ -1,5 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocabmate/pages/home_page/options_dialog.dart';
 import 'package:vocabmate/widgets/elevated_button.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 
@@ -102,7 +104,13 @@ class _OptionsButton extends ConsumerWidget {
         ),
         color: Colors.transparent,
         center: context.isMobile,
-        onPressed: () {},
+        onPressed: () {
+          showModal(
+            context: context,
+            builder: (context) => const OptionsDialog(),
+            routeSettings: const RouteSettings(name: '/options'),
+          );
+        },
       ),
     );
   }
