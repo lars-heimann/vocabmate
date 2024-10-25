@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vocabmate/widgets/theme.dart';
 
 TextStyle _getAnswerTextStyle(BuildContext context) =>
     DefaultTextStyle.of(context).style.copyWith(
@@ -223,7 +222,7 @@ class _FaqCardState extends State<_FaqCard> {
               cursor: SystemMouseCursors.click,
               child: Container(
                 decoration: BoxDecoration(
-                  color: lightViolet,
+                  color: const Color(0xFFDBAEEA),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: AnimatedSize(

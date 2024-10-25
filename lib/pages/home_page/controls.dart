@@ -1,11 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:animations/animations.dart';
-import 'package:vocabmate/widgets/ankigpt_card.dart';
 import 'package:vocabmate/widgets/elevated_button.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 

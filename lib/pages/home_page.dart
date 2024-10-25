@@ -122,6 +122,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
                       AboutSection(),
                       SizedBox(height: 100),
                       FaqSection(),
+                      SizedBox(height: 100),
                     ],
                   ),
                 ),
