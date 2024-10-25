@@ -6,7 +6,7 @@ class InputTextField extends StatelessWidget {
     super.key,
     this.isEnabled = true,
     this.hintText =
-        '''Copy the text of a few slides and paste it into this text field.
+        '''Copy the text you want to learn and paste it into this text field.
 Supports all languages.''',
   });
 

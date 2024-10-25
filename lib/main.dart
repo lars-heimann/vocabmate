@@ -27,8 +27,7 @@ class VocabMateApp extends StatelessWidget {
     return MaterialApp(
       title: 'VocabMate',
       theme: vocabMateTheme,
-      initialRoute:
-          FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home-page',
+      initialRoute: '/home-page',
       routes: {
         '/sign-in': (context) => SignInScreen(
               providers: providers,

@@ -93,7 +93,7 @@ class _OptionsButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       child: AnkiGptElevatedButton.icon(
-        tooltip: 'Edit options (e.g. number of cards, model)',
+        tooltip: 'Edit options (e.g. number of cards, model, target language)',
         icon: const Icon(Icons.tune),
         label: const Text('Options'),
         border: Border.all(
