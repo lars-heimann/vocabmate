@@ -29,7 +29,7 @@ class _AppBarSmallScreen extends StatelessWidget {
       leading: SizedBox(
         height: 1,
         child: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () => Scaffold.of(context).openDrawer(),
         ),
       ),

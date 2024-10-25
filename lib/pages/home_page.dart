@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vocabmate/pages/home_page/about_section.dart';
 import 'package:vocabmate/pages/home_page/app_bar.dart';
+import 'package:vocabmate/pages/home_page/drawer.dart';
 import 'package:vocabmate/pages/home_page/faq_section.dart';
 import 'package:vocabmate/pages/home_page/input_section.dart';
 import 'package:vocabmate/pages/home_page/pricing_section.dart';
+import 'package:vocabmate/widgets/extensions.dart';
 import 'package:vocabmate/widgets/footer.dart';
 import '../services/chatgpt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
@@ -102,6 +104,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
     return SelectionArea(
       child: Scaffold(
         appBar: const HomePageAppBar(),
+        drawer: context.isMobile ? const HomePageDrawer() : null,
         body: SingleChildScrollView(
           child: SafeArea(
             child: Column(

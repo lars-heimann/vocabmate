@@ -39,7 +39,7 @@ class _DesktopFooter extends StatelessWidget {
     return const Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 2, child: _AboutAnkiGpt()),
+        Expanded(flex: 2, child: _AboutVocabmate()),
         Expanded(flex: 1, child: SizedBox()),
         Expanded(flex: 1, child: _Product()),
         Expanded(flex: 1, child: _Contact()),
@@ -57,7 +57,7 @@ class _MobileFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _AboutAnkiGpt(),
+        const _AboutVocabmate(),
         const SizedBox(height: 32),
         if (context.isTiny)
           const Column(
@@ -110,7 +110,7 @@ class _Contact extends StatelessWidget {
       title: 'Contact',
       links: [
         ('WhatsApp', Uri.parse('https://ankigpt.help/support')),
-        ('Email', Uri.parse('mailto:support@ankigpt.help')),
+        ('Email', Uri.parse('mailto:vocabmate@larsheimann.com')),
       ],
     );
   }
@@ -124,15 +124,15 @@ class _Product extends StatelessWidget {
     return _LinksList(
       title: 'Product',
       links: [
-        ('Source Code', Uri.parse('https://github.com/nilsreichardt/ankigpt')),
-        ('Feedback', Uri.parse('#feedback')),
+        ('Source Code', Uri.parse('https://github.com/lars0530/vocabmate')),
+        ('Feedback', Uri.parse('mailto:vocabmate@larsheimann.com')),
       ],
     );
   }
 }
 
-class _AboutAnkiGpt extends StatelessWidget {
-  const _AboutAnkiGpt();
+class _AboutVocabmate extends StatelessWidget {
+  const _AboutVocabmate();
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +147,7 @@ class _AboutAnkiGpt extends StatelessWidget {
         const SizedBox(height: 12),
         MarkdownBody(
           data:
-              'Generate flashcards from the lecture slides with one click and easily export them to [Anki](https://apps.ankiweb.net).',
+              'Generate flashcards from the texts you wish to learn with one click and easily export them to [Anki](https://apps.ankiweb.net).',
           styleSheet: MarkdownStyleSheet(
             a: DefaultTextStyle.of(context).style.copyWith(
                   decoration: TextDecoration.underline,
@@ -175,7 +175,7 @@ class _ClimateInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return MarkdownBody(
       data:
-          'AnkiGPT will contribute 1% of your purchase to removing CO₂ from the atmosphere. Find here more information about [Stripe Climate](https://climate.stripe.com/26fHGz).',
+          'Vocabmate will contribute 1% of your purchase to removing CO₂ from the atmosphere. Find here more information about [Stripe Climate](https://climate.stripe.com/26fHGz).',
       styleSheet: MarkdownStyleSheet(
         a: DefaultTextStyle.of(context).style.copyWith(
               decoration: TextDecoration.underline,
@@ -209,7 +209,7 @@ class _SocialMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SocialMediaIconButton(
       platform: SocialMediaPlatform.github,
-      url: 'https://github.com/nilsreichardt/ankigpt',
+      url: 'https://github.com/lars0530/vocabmate',
     );
   }
 }
