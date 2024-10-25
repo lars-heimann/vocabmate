@@ -1,3 +1,4 @@
+import 'package:vocabmate/widgets/ankigpt_logo.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 import 'package:vocabmate/widgets/scroll_to.dart';
 import 'package:vocabmate/widgets/theme.dart';
@@ -35,7 +36,7 @@ class _AppBarSmallScreen extends StatelessWidget {
       centerTitle: true,
       title: const SizedBox(
         height: 40,
-        child: Text('Logo Placeholder'),
+        child: AnkiGptTextLogo(),
       ),
       actions: const [
         IconButton(
@@ -56,7 +57,7 @@ class _AppBarLargeScreen extends ConsumerWidget {
       leadingWidth: 150,
       leading: const Padding(
         padding: EdgeInsets.only(left: 12, top: 6, bottom: 6),
-        child: Text('Logo Placeholder'),
+        child: AnkiGptTextLogo(),
       ),
       centerTitle: true,
       title: const _NavigationItems(),
