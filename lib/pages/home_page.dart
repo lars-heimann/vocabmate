@@ -112,28 +112,16 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
                   constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height,
                   ),
-                  child: Column(
+                  child: const Column(
                     children: [
-                      const InputSection(),
-                      const SizedBox(height: 50),
-                      ElevatedButton(
-                        onPressed: _isLoading ? null : _sendMessage,
-                        child: const Text('Generate Flashcards'),
-                      ),
-                      const SizedBox(height: 100),
-                      ElevatedButton(
-                        onPressed: _isLoading ? null : _generateTestFlashcards,
-                        child: const Text('Generate Test Flashcards'),
-                      ),
-                      // _isLoading
-                      //     ? const CircularProgressIndicator()
-                      //     : const Text('Enter a message to generate flashcards'),
-                      const SizedBox(height: 100),
-                      const PricingSection(),
-                      const SizedBox(height: 100),
-                      const AboutSection(),
-                      const SizedBox(height: 100),
-                      const FaqSection(),
+                      InputSection(),
+                      SizedBox(height: 50),
+                      SizedBox(height: 100),
+                      PricingSection(),
+                      SizedBox(height: 100),
+                      AboutSection(),
+                      SizedBox(height: 100),
+                      FaqSection(),
                     ],
                   ),
                 ),

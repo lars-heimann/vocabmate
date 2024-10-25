@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:vocabmate/pages/home_page/controls.dart';
 import 'package:vocabmate/providers/home_page_scroll_view.dart';
 import 'package:vocabmate/widgets/input_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -21,6 +22,7 @@ class InputSection extends ConsumerWidget {
           children: [
             const _Headline(),
             const InputTextField(),
+            const Controls(),
           ],
         ),
       ),
