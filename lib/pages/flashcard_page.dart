@@ -57,10 +57,9 @@ class FlashCardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final String inputText = arguments['inputText'];
-    final List<FlashCard> flashCards = arguments['flashCards'];
+    // Add print statements to debug
+    print('Navigated to FlashCardPage with inputText: $inputText');
+    print('Navigatted to FlashCardPage with flashCards: $flashCards');
 
     return Scaffold(
       appBar: AppBar(
