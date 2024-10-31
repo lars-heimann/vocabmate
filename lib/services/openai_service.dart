@@ -1,21 +1,37 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:vocabmate/models/flashcard_model.dart';
 
-class ChatGptService {
-  Future<String> sendMessage(String userId, String message) async {
+class OpenAIService {
+  static Future<List<FlashCard>> generateAnkiCards(
+    String userId,
+    String userText,
+    String model,
+    String explanationLanguage,
+    int numOfCards,
+  ) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/generate-anki-cards-with-known-words'),
+      Uri.parse('http://localhost:3000/generate-anki-cards'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'userId': userId, 'text': message}),
+      body: jsonEncode({
+        'firebase_uid': userId,
+        'text': userText,
+        'model': model,
+        'explanation_language': explanationLanguage,
+        'num_of_cards': numOfCards
+      }),
     );
 
     if (response.statusCode == 200) {
       // Parse the JSON response into a readable format
-      final jsonResponse = jsonDecode(response.body);
-      return jsonEncode(jsonResponse); // or format as desired
+      var jsonResponse = jsonDecode(response.body);
+      final List<FlashCard> flashCards = (jsonResponse['flashcards'] as List)
+          .map<FlashCard>((data) => FlashCard.fromJson(data))
+          .toList();
+      return flashCards; // or format as desired
     } else {
       throw Exception('Failed to load response: ${response.body}');
     }

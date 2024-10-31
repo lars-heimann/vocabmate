@@ -7,7 +7,7 @@ import 'package:vocabmate/pages/home_page/input_section.dart';
 import 'package:vocabmate/pages/home_page/pricing_section.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 import 'package:vocabmate/widgets/footer.dart';
-import '../services/chatgpt_service.dart';
+import '../services/openai_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
 import 'dart:convert';
@@ -20,75 +20,75 @@ class VocabMateHomePage extends StatefulWidget {
 }
 
 class _VocabMateHomePageState extends State<VocabMateHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  final ChatGptService _chatGptService = ChatGptService();
-  bool _isLoading = false;
+  // final TextEditingController _controller = TextEditingController();
+  // final ChatGptService _chatGptService = ChatGptService();
+  // bool _isLoading = false;
 
-  void _sendMessage() async {
-    setState(() {
-      _isLoading = true;
-    });
+  // void _sendMessage() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User not logged in')),
-      );
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
+  //   final userId = FirebaseAuth.instance.currentUser?.uid;
+  //   if (userId == null) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('User not logged in')),
+  //     );
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     return;
+  //   }
 
-    try {
-      final response =
-          await _chatGptService.sendMessage(userId, _controller.text);
-      final List<dynamic> jsonResponse = jsonDecode(response);
-      final List<FlashCard> flashCards =
-          jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
+  //   try {
+  //     final response =
+  //         await ChatGptService.generateAnkiCards(userId, _controller.text);
+  //     final List<dynamic> jsonResponse = jsonDecode(response);
+  //     final List<FlashCard> flashCards =
+  //         jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
 
-      Navigator.pushNamed(
-        context,
-        '/flashcard-page',
-        arguments: {'inputText': _controller.text, 'flashCards': flashCards},
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
+  //     Navigator.pushNamed(
+  //       context,
+  //       '/flashcard-page',
+  //       arguments: {'inputText': _controller.text, 'flashCards': flashCards},
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error: $e')),
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
 
-  void _generateTestFlashcards() async {
-    setState(() {
-      _isLoading = true;
-    });
+  // void _generateTestFlashcards() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    try {
-      final response = await _chatGptService.generateTestFlashcards();
-      final List<dynamic> jsonResponse = jsonDecode(response);
-      final List<FlashCard> flashCards =
-          jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
+  //   try {
+  //     final response = await _chatGptService.generateTestFlashcards();
+  //     final List<dynamic> jsonResponse = jsonDecode(response);
+  //     final List<FlashCard> flashCards =
+  //         jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
 
-      Navigator.pushNamed(
-        context,
-        '/flashcard-page',
-        arguments: {'inputText': 'Test input text', 'flashCards': flashCards},
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
+  //     Navigator.pushNamed(
+  //       context,
+  //       '/flashcard-page',
+  //       arguments: {'inputText': 'Test input text', 'flashCards': flashCards},
+  //     );
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error: $e')),
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
 
   void _logout() async {
     await FirebaseAuth.instance.signOut();

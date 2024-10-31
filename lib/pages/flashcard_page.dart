@@ -8,7 +8,10 @@ import '../services/flashcard_service.dart'; // Import the service
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FlashCardPage extends StatelessWidget {
-  const FlashCardPage({super.key});
+  final String inputText;
+  final List<FlashCard> flashCards;
+  const FlashCardPage(
+      {super.key, required this.inputText, required this.flashCards});
 
   void _copyCsvToClipboard(BuildContext context, List<FlashCard> flashCards) {
     final csvString = generateCsv(flashCards);
@@ -54,10 +57,9 @@ class FlashCardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> arguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final String inputText = arguments['inputText'];
-    final List<FlashCard> flashCards = arguments['flashCards'];
+    // Add print statements to debug
+    print('Navigated to FlashCardPage with inputText: $inputText');
+    print('Navigatted to FlashCardPage with flashCards: $flashCards');
 
     return Scaffold(
       appBar: AppBar(
@@ -81,16 +83,16 @@ class FlashCardPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 8.0),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.save),
-              label: const Text('Save Flashcards to Database'),
-              onPressed: () => _saveFlashcards(context, flashCards),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              ),
-            ),
+            // const SizedBox(height: 8.0),
+            // ElevatedButton.icon(
+            //   icon: const Icon(Icons.save),
+            //   label: const Text('Save Flashcards to Database'),
+            //   onPressed: () => _saveFlashcards(context, flashCards),
+            //   style: ElevatedButton.styleFrom(
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            //   ),
+            // ),
             const Divider(height: 32.0),
             Expanded(
               child: ListView.builder(

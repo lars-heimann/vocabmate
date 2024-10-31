@@ -41,7 +41,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   url_launcher: ^6.3.0
   flutter_riverpod: ^2.5.1
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^2.4.4
   riverpod_annotation: ^2.3.5
   csv: ^5.0.0
   firebase_core: ^2.32.0
@@ -51,6 +51,8 @@ dependencies:
   go_router: ^14.3.0
   wiredash: ^2.2.2
   wolt_responsive_layout_grid: ^0.0.3
+  uuid: ^4.5.1
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  build_runner: ^2.4.13
+  riverpod_generator:
+  freezed: ^2.5.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
