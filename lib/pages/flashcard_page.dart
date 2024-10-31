@@ -83,16 +83,16 @@ class FlashCardPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 8.0),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.save),
-              label: const Text('Save Flashcards to Database'),
-              onPressed: () => _saveFlashcards(context, flashCards),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              ),
-            ),
+            // const SizedBox(height: 8.0),
+            // ElevatedButton.icon(
+            //   icon: const Icon(Icons.save),
+            //   label: const Text('Save Flashcards to Database'),
+            //   onPressed: () => _saveFlashcards(context, flashCards),
+            //   style: ElevatedButton.styleFrom(
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            //   ),
+            // ),
             const Divider(height: 32.0),
             Expanded(
               child: ListView.builder(
