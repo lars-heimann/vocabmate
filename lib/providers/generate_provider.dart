@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vocabmate/models/card_generation_size.dart';
+import 'package:vocabmate/models/flashcard_model.dart';
 import 'package:vocabmate/models/generate_state.dart';
 import 'package:vocabmate/models/model.dart';
 import 'package:vocabmate/providers/has_plus_provider.dart';
@@ -46,7 +48,9 @@ class GenerateNotifier extends _$GenerateNotifier {
   }
 
   Future<void> submit() async {
+    print("Submit method started");
     final options = ref.read(optionsControllerProvider);
+    print("Options read from optionsControllerProvider: $options");
 
     // _logger.d("Generating cards...");
 
@@ -57,6 +61,8 @@ class GenerateNotifier extends _$GenerateNotifier {
     // }
 
     final text = _textEditingController.text;
+    print("Text read from _textEditingController $text");
+
     // if (!_hasPickedFile) {
     //   _throwIfTextInputIsInvalid(text);
     // }
@@ -72,13 +78,18 @@ class GenerateNotifier extends _$GenerateNotifier {
     // }
 
     state = const GenerateState.loading();
+    print("State set to loading $state");
 
     try {
       final userId = const Uuid().v4();
+      print("Generated userId: $userId");
       final model = options.model.snakeCaseName;
+      print("Model: $model");
       final numOfCards = options.size.toInt();
+      print("Number of cards: $numOfCards");
       const explanationLanguage = 'english';
       final userText = text;
+      print("User text: $userText");
 
       final generatedCards = await OpenAIService.generateAnkiCards(
         userId,
@@ -87,12 +98,15 @@ class GenerateNotifier extends _$GenerateNotifier {
         explanationLanguage,
         numOfCards,
       );
-
+      print("Anki cards generated successfully");
       // Reset state
       state = const GenerateState.initial();
+      print("State reset to initial");
       _textEditingController.clear();
+      print("TextEditingController cleared");
       // _pdfPassword = null;
       ref.read(optionsControllerProvider.notifier).reset();
+      print("OptionsControllerProvider reset");
 
       final router = ref.read(routerProvider);
       router.go('/deck', extra: {
@@ -102,7 +116,7 @@ class GenerateNotifier extends _$GenerateNotifier {
 
       print("Navigated to /deck");
     } catch (e, s) {
-      print(e);
+      print("Error occurred: $e");
     }
   }
 }
