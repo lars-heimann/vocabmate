@@ -50,10 +50,11 @@ class GenerateNotifier extends _$GenerateNotifier {
 
     // _logger.d("Generating cards...");
 
-    if (!_hasPlus && options.hasPlusOption()) {
-      // _logPlusRequiredToGenerate();
-      throw PlusMembershipRequiredException();
-    }
+    // if (!_hasPlus && options.hasPlusOption()) {
+    //   print("Plus membership required but not available");
+    //   // _logPlusRequiredToGenerate();
+    //   throw PlusMembershipRequiredException();
+    // }
 
     final text = _textEditingController.text;
     // if (!_hasPickedFile) {

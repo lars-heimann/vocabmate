@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:vocabmate/pages/home_page/controls.dart';
 import 'package:vocabmate/providers/home_page_scroll_view.dart';
+import 'package:vocabmate/providers/input_text_field_controller.dart';
 import 'package:vocabmate/widgets/input_text_field.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +14,18 @@ class InputSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(inputTextFieldControllerProvider);
     return MaxWidthConstrainedBox(
       key: ref.read(homePageScrollViewProvider).inputSectionKey,
       maxWidth: 850,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             const _Headline(),
-            const InputTextField(),
+            InputTextField(
+              controller: controller,
+            ),
             const Controls(),
           ],
         ),

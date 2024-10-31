@@ -4,12 +4,14 @@ import 'package:vocabmate/widgets/theme.dart';
 class InputTextField extends StatelessWidget {
   const InputTextField({
     super.key,
+    required this.controller,
     this.isEnabled = true,
     this.hintText =
         '''Copy the text you want to learn and paste it into this text field.
 Supports all languages.''',
   });
 
+  final TextEditingController controller;
   final bool isEnabled;
   final String hintText;
 
@@ -23,6 +25,7 @@ Supports all languages.''',
       ),
     );
     return TextField(
+      controller: controller,
       autofocus: true,
       decoration: InputDecoration(
           focusedBorder: border,
