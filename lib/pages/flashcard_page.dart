@@ -8,7 +8,10 @@ import '../services/flashcard_service.dart'; // Import the service
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FlashCardPage extends StatelessWidget {
-  const FlashCardPage({super.key});
+  final String inputText;
+  final List<FlashCard> flashCards;
+  const FlashCardPage(
+      {super.key, required this.inputText, required this.flashCards});
 
   void _copyCsvToClipboard(BuildContext context, List<FlashCard> flashCards) {
     final csvString = generateCsv(flashCards);

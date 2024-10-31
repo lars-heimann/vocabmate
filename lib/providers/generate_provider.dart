@@ -80,7 +80,7 @@ class GenerateNotifier extends _$GenerateNotifier {
       const explanationLanguage = 'english';
       final userText = text;
 
-      await OpenAIService.generateAnkiCards(
+      final generatedCards = await OpenAIService.generateAnkiCards(
         userId,
         userText,
         model,
@@ -95,7 +95,12 @@ class GenerateNotifier extends _$GenerateNotifier {
       ref.read(optionsControllerProvider.notifier).reset();
 
       final router = ref.read(routerProvider);
-      router.go('/deck/');
+      router.go('/deck', extra: {
+        'inputText': userText, // Pass the text input
+        'flashCards': generatedCards, // Pass the generated flashcards list
+      });
+
+      print("Navigated to /deck");
     } catch (e, s) {
       print(e);
     }

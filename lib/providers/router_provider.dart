@@ -47,8 +47,12 @@ GoRouter router(RouterRef ref) {
           GoRoute(
             path: 'deck',
             builder: (context, state) {
-              // final id = state.pathParameters['id'];
-              return FlashCardPage();
+              final arguments = state.extra as Map<String, dynamic>?;
+              print('Navigating to deck with arguments: $arguments');
+              return FlashCardPage(
+                inputText: arguments?['inputText'] ?? '',
+                flashCards: arguments?['flashCards'] ?? [],
+              );
             },
           ),
           // GoRoute(
