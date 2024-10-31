@@ -3,6 +3,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocabmate/models/generate_state.dart';
 import 'package:vocabmate/pages/deck_page/error_card.dart';
 import 'package:vocabmate/pages/home_page/options_dialog.dart';
 import 'package:vocabmate/pages/home_page/plus_dialog.dart';
@@ -146,6 +147,8 @@ class _GenerateButton extends ConsumerWidget {
       //   model, // Assuming `model` has a `name` or `toString` for the API
       //   explanationLanguage,
       //   numOfCards,
+      print(
+          "currently running the generate method within the controls.dart generatebutton class");
       await ref.read(generateNotifierProvider.notifier).submit();
     } catch (e) {
       if (!context.mounted) return;
@@ -196,7 +199,8 @@ class _GenerateButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isGenerating = false; // ref.watch(isGeneratingProvider);
+    final isGenerating =
+        ref.watch(generateNotifierProvider) is GenerationStateLoading;
 
     final options = ref.watch(optionsControllerProvider);
     return AnimatedSwitcher(
