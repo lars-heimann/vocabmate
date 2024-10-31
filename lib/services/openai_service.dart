@@ -2,14 +2,26 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 
-class ChatGptService {
-  Future<String> sendMessage(String userId, String message) async {
+class OpenAIService {
+  static Future<String> generateAnkiCards(
+    String userId,
+    String userText,
+    String model,
+    String explanationLanguage,
+    int numOfCards,
+  ) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/generate-anki-cards-with-known-words'),
+      Uri.parse('http://localhost:3000/generate-anki-cards'),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'userId': userId, 'text': message}),
+      body: jsonEncode({
+        'firebase_uid': userId,
+        'text': userText,
+        'model': model,
+        'explanation_language': explanationLanguage,
+        'num_of_cards': numOfCards
+      }),
     );
 
     if (response.statusCode == 200) {
