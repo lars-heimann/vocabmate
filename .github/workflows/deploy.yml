@@ -1,0 +1,32 @@
+name: Deploy app to S3
+
+on: 
+  push:
+    branches: [ "main"]
+  workflow_dispatch:
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set Up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.3'
+        channel: 'stable'
+    
+    - name: Get Dependencies
+      run: flutter pub get
+
+    - name: Build Flutter Web
+      run: flutter build web
+
+    - uses: shallwefootball/s3-upload-action@master
+      with:
+        aws_key_id: ${{ secrets.AWS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+        aws_bucket: ${{ secrets.AWS_BUCKET }}
+        source_dir: "build/web"
+        destination_dir: ''
