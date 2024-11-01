@@ -2,9 +2,7 @@ name: Deploy app to S3
 
 on: 
   push:
-    branches:
-      - main
-      - add-cd-pipeline
+    branches: [ "main"]
   workflow_dispatch:
 jobs:
   upload:
