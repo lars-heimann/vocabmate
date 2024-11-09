@@ -1,0 +1,22 @@
+enum TargetLanguage {
+  english,
+  mandarin,
+  hindi,
+  spanish,
+  french,
+  arabic,
+  bengali,
+  russian,
+  portuguese,
+  urdu,
+  indonesian,
+  german,
+  japanese,
+  marathi,
+  telugu,
+  turkish,
+  tamil,
+  vietnamese,
+  korean,
+  italian;
+}
