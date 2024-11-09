@@ -87,7 +87,8 @@ class GenerateNotifier extends _$GenerateNotifier {
       print("Model: $model");
       final numOfCards = options.size.toInt();
       print("Number of cards: $numOfCards");
-      const explanationLanguage = 'english';
+      final explanationLanguage = options.language.getUIText();
+      print("Explanation language: $explanationLanguage");
       final userText = text;
       print("User text: $userText");
 
