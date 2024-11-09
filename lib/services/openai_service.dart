@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:vocabmate/config.dart';
 import 'package:vocabmate/models/flashcard_model.dart';
 
 class OpenAIService {
@@ -11,8 +12,10 @@ class OpenAIService {
     String explanationLanguage,
     int numOfCards,
   ) async {
+    final url = '${Config.baseUrl}/generate-anki-cards';
+    print(url);
     final response = await http.post(
-      Uri.parse('http://localhost:3000/generate-anki-cards'),
+      Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -26,14 +29,14 @@ class OpenAIService {
     );
 
     if (response.statusCode == 200) {
-      // Parse the JSON response into a readable format
       var jsonResponse = jsonDecode(response.body);
       final List<FlashCard> flashCards = (jsonResponse['flashcards'] as List)
           .map<FlashCard>((data) => FlashCard.fromJson(data))
           .toList();
-      return flashCards; // or format as desired
+      return flashCards;
     } else {
-      throw Exception('Failed to load response: ${response.body}');
+      throw Exception(
+          'Failed to load response (error code: ${response.statusCode}): ${response.body}');
     }
   }
 
