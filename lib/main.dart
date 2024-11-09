@@ -89,7 +89,7 @@ class AnkiGptApp extends ConsumerWidget {
     // ref.read(sharedPreferencesAccesserProvider);
 
     return MaterialApp.router(
-      title: 'AnkiGPT - Turn lecture slides into flashcards',
+      title: 'Vocabmate - Create vocab flashcards in seconds',
       theme: vocabMateTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: ref.watch(routerProvider),

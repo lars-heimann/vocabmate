@@ -48,7 +48,7 @@ class _IsVocabmateOpenSource extends StatelessWidget {
       question: Text('Is the source code of Vocabmate public?'),
       answer: _MarkdownAnswer(
         text:
-            "Yes, the source code of the client for AnkiGPT is public and can be accessed by anyone interested. You can explore or even contribute to the project by visiting the GitHub repository [lars0530/vocabmate](https://github.com/lars0530/vocabmate). However, it's important to note that while the client's code is open, the backend (including the prompts) is closed source. We greatly value community input and appreciate all contributions to improve Vocabmate. It is also important to note that this project is greatly inspired by [AnkiGPT](https://ankigpt.help/) by Nils Reichardt",
+            "Yes, the source code of the client for Vocabmate is public and can be accessed by anyone interested. You can explore or even contribute to the project by visiting the GitHub repository [lars0530/vocabmate](https://github.com/lars0530/vocabmate). However, it's important to note that while the client's code is open, the backend (including the prompts) is closed source. We greatly value community input and appreciate all contributions to improve Vocabmate. It is also important to note that this project is greatly inspired by [AnkiGPT](https://ankigpt.help/) by Nils Reichardt",
       ),
     );
   }
