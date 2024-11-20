@@ -32,4 +32,4 @@ jobs:
         destination_dir: ''
 
     - name: redeploy amplify
-      run: aws amplify start-deployment --app-id d2sle436cbl5dq --branch-name production --source-url s3://vocabmate.larsheimann.com/ source-url-type BUCKET_PREFIX
+      run: aws amplify start-deployment --app-id d2sle436cbl5dq --branch-name staging --source-url s3://vocabmate.larsheimann.com/ --source-url-type BUCKET_PREFIX
