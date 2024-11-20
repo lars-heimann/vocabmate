@@ -30,3 +30,6 @@ jobs:
         aws_bucket: ${{ secrets.AWS_BUCKET }}
         source_dir: "build/web"
         destination_dir: ''
+
+    - name: redeploy amplify
+      run: aws amplify start-deployment --app-id d2sle436cbl5dq --branch-name production --source-url s3://vocabmate.larsheimann.com/ source-url-type BUCKET_PREFIX
