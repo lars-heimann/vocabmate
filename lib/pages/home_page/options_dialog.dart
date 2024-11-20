@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocabmate/models/card_generation_size.dart';
 import 'package:vocabmate/models/model.dart';
+import 'package:vocabmate/models/target_language.dart';
 import 'package:vocabmate/pages/home_page/plus_dialog.dart';
 import 'package:vocabmate/providers/options_provider.dart';
 import 'package:vocabmate/widgets/cancel_text_button.dart';
@@ -26,6 +27,8 @@ class OptionsDialog extends StatelessWidget {
               _NumberOfCardsOption(),
               SizedBox(height: 24),
               _ModelOption(),
+              SizedBox(height: 24),
+              _TargetLanguageOption(),
             ],
           ),
         ),
@@ -235,5 +238,47 @@ class _Gpt4Usage extends ConsumerWidget {
     //           )
     //         : const SizedBox(),
     //   );
+  }
+}
+
+class _TargetLanguageOption extends StatelessWidget {
+  const _TargetLanguageOption();
+
+  @override
+  Widget build(BuildContext context) {
+    return const _Option(
+      title: Text('Target Language'),
+      subtitle: Text('Specify the target language for the flashcards.'),
+      child: TargetLanguageDropdown(),
+    );
+  }
+}
+
+class TargetLanguageDropdown extends ConsumerWidget {
+  const TargetLanguageDropdown({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final availableLanguages = TargetLanguage.values.toList();
+
+    return SizedBox(
+      width: double.infinity,
+      child: DropdownButtonFormField<TargetLanguage>(
+        value: ref.watch(optionsControllerProvider.select((v) => v.language)),
+        items: [
+          ...availableLanguages.map(
+            (language) => DropdownMenuItem(
+              value: language,
+              child: Text(language.toString().split('.').last),
+            ),
+          )
+        ],
+        onChanged: (v) {
+          if (v != null) {
+            ref.read(optionsControllerProvider.notifier).setLanguage(v);
+          }
+        },
+      ),
+    );
   }
 }

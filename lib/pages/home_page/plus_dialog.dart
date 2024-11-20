@@ -39,7 +39,7 @@ class PlusDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title: const Text("AnkiGPT Plus"),
+      title: const Text("Vocabmate Plus"),
       content: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: const BoxConstraints(
@@ -217,7 +217,7 @@ class TooLongInputDialog extends StatelessWidget {
             AnkiGptCard(
               color: Color(0xFFFFDFDF),
               child: Text(
-                'Your text is too long. Free users have a limt of 4,000 characters. Buy AnkiGPT Plus to remove this limit.',
+                'Your text is too long. Free users have a limt of 4,000 characters. Buy Vocabmate Plus to remove this limit.',
                 style: TextStyle(color: Color(0xFFD90000)),
               ),
             ),
