@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "main"]
   workflow_dispatch:
+
+env:
+  flutter_version: '3.24.3'
+
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -14,14 +18,18 @@ jobs:
     - name: Set Up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.24.3'
+        flutter-version: ${{ env.flutter_version }}
         channel: 'stable'
+        cache: true
     
     - name: Get Dependencies
       run: flutter pub get
 
     - name: Build Flutter Web
-      run: flutter build web
+      run: |
+        flutter build web \
+          --web-renderer canvaskit \
+          --dart-define=RELEASE_DATE_VERSION="$(date +"%B %e %Y") ${{ github.sha }}"
 
     - uses: shallwefootball/s3-upload-action@master
       with:
@@ -30,3 +38,14 @@ jobs:
         aws_bucket: ${{ secrets.AWS_BUCKET }}
         source_dir: "build/web"
         destination_dir: ''
+    
+    - uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'eu-central-1'
+        managed-session-policies: arn:aws:iam::aws:policy/AmplifyBackendDeployFullAccess
+        
+
+    - name: redeploy amplify
+      run: aws amplify start-deployment --app-id d2sle436cbl5dq --branch-name staging --source-url s3://vocabmate.larsheimann.com/ --source-url-type BUCKET_PREFIX

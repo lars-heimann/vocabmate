@@ -193,7 +193,7 @@ class _Version extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final version = ref.watch(versionProvider);
     return Text(
-      '$version Version',
+      'Version: $version',
       style: TextStyle(
         color: Colors.grey[600],
         fontSize: 12,
