@@ -21,84 +21,14 @@ class VocabMateHomePage extends StatefulWidget {
 }
 
 class _VocabMateHomePageState extends State<VocabMateHomePage> {
-  // final TextEditingController _controller = TextEditingController();
-  // final ChatGptService _chatGptService = ChatGptService();
-  // bool _isLoading = false;
-
-  // void _sendMessage() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   final userId = FirebaseAuth.instance.currentUser?.uid;
-  //   if (userId == null) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('User not logged in')),
-  //     );
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     return;
-  //   }
-
-  //   try {
-  //     final response =
-  //         await ChatGptService.generateAnkiCards(userId, _controller.text);
-  //     final List<dynamic> jsonResponse = jsonDecode(response);
-  //     final List<FlashCard> flashCards =
-  //         jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
-
-  //     Navigator.pushNamed(
-  //       context,
-  //       '/flashcard-page',
-  //       arguments: {'inputText': _controller.text, 'flashCards': flashCards},
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error: $e')),
-  //     );
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
+  // void _logout() async {
+  //   await FirebaseAuth.instance.signOut();
+  //   Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
   // }
 
-  // void _generateTestFlashcards() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-
-  //   try {
-  //     final response = await _chatGptService.generateTestFlashcards();
-  //     final List<dynamic> jsonResponse = jsonDecode(response);
-  //     final List<FlashCard> flashCards =
-  //         jsonResponse.map((data) => FlashCard.fromJson(data)).toList();
-
-  //     Navigator.pushNamed(
-  //       context,
-  //       '/flashcard-page',
-  //       arguments: {'inputText': 'Test input text', 'flashCards': flashCards},
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error: $e')),
-  //     );
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
+  // void _navigateToVocabulary() {
+  //   Navigator.pushNamed(context, '/vocabulary-page');
   // }
-
-  void _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed('/sign-in'); // Direct navigation
-  }
-
-  void _navigateToVocabulary() {
-    Navigator.pushNamed(context, '/vocabulary-page');
-  }
 
   @override
   Widget build(BuildContext context) {
