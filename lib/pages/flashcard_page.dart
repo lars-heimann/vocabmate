@@ -13,48 +13,6 @@ class FlashCardPage extends StatelessWidget {
   const FlashCardPage(
       {super.key, required this.inputText, required this.flashCards});
 
-  void _copyCsvToClipboard(BuildContext context, List<FlashCard> flashCards) {
-    final csvString = generateCsv(flashCards);
-
-    // Use the web clipboard API to copy the CSV string to the clipboard
-    html.window.navigator.clipboard?.writeText(csvString).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text(
-                'CSV copied to clipboard. Paste it in a CSV file to save.')),
-      );
-    }).catchError((err) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to copy CSV to clipboard: $err')),
-      );
-    });
-  }
-
-  Future<void> _saveFlashcards(
-      BuildContext context, List<FlashCard> flashCards) async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    if (userId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User not logged in')),
-      );
-      return;
-    }
-
-    final flashcardService = FlashcardService();
-
-    try {
-      final flashcardsData = flashCards.map((card) => card.toJson()).toList();
-      await flashcardService.addFlashcards(userId, flashcardsData);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Flashcards saved successfully!')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving flashcards: $e')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // Add print statements to debug
@@ -107,4 +65,46 @@ class FlashCardPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _saveFlashcards(
+    BuildContext context, List<FlashCard> flashCards) async {
+  final userId = FirebaseAuth.instance.currentUser?.uid;
+  if (userId == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('User not logged in')),
+    );
+    return;
+  }
+
+  final flashcardService = FlashcardService();
+
+  try {
+    final flashcardsData = flashCards.map((card) => card.toJson()).toList();
+    await flashcardService.addFlashcards(userId, flashcardsData);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Flashcards saved successfully!')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error saving flashcards: $e')),
+    );
+  }
+}
+
+void _copyCsvToClipboard(BuildContext context, List<FlashCard> flashCards) {
+  final csvString = generateCsv(flashCards);
+
+  // Use the web clipboard API to copy the CSV string to the clipboard
+  html.window.navigator.clipboard?.writeText(csvString).then((_) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content:
+              Text('CSV copied to clipboard. Paste it in a CSV file to save.')),
+    );
+  }).catchError((err) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to copy CSV to clipboard: $err')),
+    );
+  });
 }
