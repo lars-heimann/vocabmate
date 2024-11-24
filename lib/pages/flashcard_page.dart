@@ -95,7 +95,14 @@ class FlashCardPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InputTextWidget(inputText: inputText),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 300.0, // Set the maximum height
+              ),
+              child: SingleChildScrollView(
+                child: InputTextWidget(inputText: inputText),
+              ),
+            ),
             const SizedBox(
                 height:
                     8.0), // Add some space between the input text and the button
