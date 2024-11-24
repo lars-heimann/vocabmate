@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vocabmate/models/card_generation_size.dart';
 import 'package:vocabmate/models/model.dart';
 import 'package:vocabmate/models/target_language.dart';
+import 'package:vocabmate/providers/has_plus_provider.dart';
 
 part 'options_provider.freezed.dart';
 part 'options_provider.g.dart';
@@ -25,10 +26,20 @@ class OptionsController extends _$OptionsController {
   }
 
   void setSize(CardGenerationSize size) {
+    final hasPlus = false; //ref.watch(hasPlusProvider);
+    if (size.isPlus() && !hasPlus) {
+      // Don't change the size if it requires AnkiGPT Plus
+      return;
+    }
     state = state.copyWith(size: size);
   }
 
   void setModel(Model model) {
+    final hasPlus = false; //ref.watch(hasPlusProvider);
+    if (model.isPlus() && !hasPlus) {
+      // Don't change the model if it requires AnkiGPT Plus
+      return;
+    }
     state = state.copyWith(model: model);
   }
 
