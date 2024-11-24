@@ -35,6 +35,8 @@ enum CardGenerationSize {
 
   bool isPlus() {
     switch (this) {
+      case CardGenerationSize.thirty:
+      case CardGenerationSize.fifty:
       case CardGenerationSize.seventyFive:
       case CardGenerationSize.hundred:
       case CardGenerationSize.hundertFifty:

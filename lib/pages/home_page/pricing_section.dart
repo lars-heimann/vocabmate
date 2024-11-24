@@ -73,7 +73,7 @@ class _FreeTier extends ConsumerWidget {
         PointData(
           '100 cards per month',
         ),
-        PointData('Up to 50 cards per deck'),
+        PointData('Up to 20 cards per deck'),
       ],
       onPressedCallToAction: () {
         final key = ref.read(homePageScrollViewProvider).inputSectionKey;
