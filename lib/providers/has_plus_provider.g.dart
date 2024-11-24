@@ -6,7 +6,7 @@ part of 'has_plus_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hasPlusHash() => r'9ff06174d1f32fde02805bbc8862a3ff24db1d54';
+String _$hasPlusHash() => r'850c972b08d6f963f0ab49fc2fb9bff22cffa042';
 
 /// See also [hasPlus].
 @ProviderFor(hasPlus)
