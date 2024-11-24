@@ -8,7 +8,6 @@ import 'package:vocabmate/pages/home_page/pricing_section.dart';
 import 'package:vocabmate/widgets/dev_banner.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 import 'package:vocabmate/widgets/footer.dart';
-import '../services/openai_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import '../models/flashcard_model.dart';
 import 'dart:convert';
