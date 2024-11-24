@@ -91,7 +91,7 @@ class _PlusTier extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return _TierBase(
       name: 'Plus',
-      priceEurPart: '€9',
+      priceEurPart: '€14',
       priceCentPart: '.99',
       priceDescription: 'Lifetime (one-time payment)',
       points: const [
@@ -101,13 +101,57 @@ class _PlusTier extends ConsumerWidget {
         PointData('Up to 150 cards per deck'),
       ],
       onPressedCallToAction: () {
-        final key = ref.read(homePageScrollViewProvider).inputSectionKey;
-        scrollTo(context: context, key: key);
+        _showDevelopmentDialog(context);
       },
       callToActionText: 'Upgrade now',
     );
   }
 }
+
+void _showDevelopmentDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Coming Soon!'),
+        content: const Text(
+            'Vocabmate Plus is currently still under development.\nYou may use all of the free tier options.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+// class _PlusTier extends ConsumerWidget {
+//   const _PlusTier();
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return _TierBase(
+//       name: 'Plus',
+//       priceEurPart: '€9',
+//       priceCentPart: '.99',
+//       priceDescription: 'Lifetime (one-time payment)',
+//       points: const [
+//         PointData(
+//           'Unlimited cards per month',
+//         ),
+//         PointData('Up to 150 cards per deck'),
+//       ],
+//       onPressedCallToAction: () {
+//         _showDevelopmentDialog(context);
+//       },
+//       callToActionText: 'Upgrade now',
+//     );
+//   }
+// }
 
 class _TierBase extends StatelessWidget {
   const _TierBase({
