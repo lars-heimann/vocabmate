@@ -125,77 +125,24 @@ class _PlusPrice extends StatelessWidget {
   }
 }
 
-class _BuyButton extends ConsumerStatefulWidget {
+class _BuyButton extends StatelessWidget {
   const _BuyButton();
 
   @override
-  ConsumerState<_BuyButton> createState() => _BuyButtonState();
-}
-
-class _BuyButtonState extends ConsumerState<_BuyButton> {
-  bool isLoading = false;
-
-  Future<void> buy() async {
-    // Placeholder method
-    await Future.delayed(const Duration(seconds: 2));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 250),
-      child: Stack(
-        key: ValueKey(isLoading),
-        alignment: Alignment.center,
-        children: [
-          Opacity(
-            opacity: isLoading ? 0 : 1,
-            child: IgnorePointer(
-              ignoring: isLoading,
-              child: SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                  ),
-                  onPressed: () async {
-                    setState(() {
-                      isLoading = true;
-                    });
-
-                    try {
-                      await buy();
-                    } on Exception catch (e) {
-                      if (!context.mounted) return;
-                      context.showTextSnackBar('Error while buying Plus: $e');
-                      Navigator.pop(context);
-                    } finally {
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  },
-                  child: const Text('BUY'),
-                ),
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Center(
+        child: TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            shadowColor: Colors.transparent,
           ),
-          Opacity(
-            opacity: isLoading ? 1 : 0,
-            child: IgnorePointer(
-              ignoring: !isLoading,
-              child: const SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          )
-        ],
+          onPressed: () => showDevelopmentDialog(context),
+          child: const Text('BUY'),
+        ),
       ),
     );
   }

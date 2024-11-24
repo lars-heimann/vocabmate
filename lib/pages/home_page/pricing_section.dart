@@ -101,14 +101,14 @@ class _PlusTier extends ConsumerWidget {
         PointData('Up to 150 cards per deck'),
       ],
       onPressedCallToAction: () {
-        _showDevelopmentDialog(context);
+        showDevelopmentDialog(context);
       },
       callToActionText: 'Upgrade now',
     );
   }
 }
 
-void _showDevelopmentDialog(BuildContext context) {
+void showDevelopmentDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
