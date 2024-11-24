@@ -33,6 +33,7 @@ class FaqSection extends ConsumerWidget {
           _CurrentLimits(),
           _CouldHaveFalseInformation(),
           _IsVocabmateRelatedToAnkiGPT(),
+          _HowDoesVocabmateWork(),
         ],
       ),
     );
@@ -76,7 +77,7 @@ class _WhichModelIsUsed extends StatelessWidget {
       question: Text('Which model is used for Vocabmate?'),
       answer: _MarkdownAnswer(
         text:
-            "Vocabmate primarily utilizes the GPT-4o-mini by OpenAI model to generate flashcards, offering a seamless integration of advanced AI technology for effective learning. For users who opt for the Vocabmate Plus version, they gain the enhanced capability to generate up to XXX flashcards per month using the more advanced [GPT-4o model](https://openai.com/index/hello-gpt-4o/), ensuring even more sophisticated and nuanced content creation.",
+            "Vocabmate primarily utilizes the GPT-4o-mini by OpenAI to generate flashcards, offering a seamless integration of advanced AI technology for effective learning. For users who opt for the Vocabmate Plus version, they gain the enhanced capability to generate an increased number of flashcards per month using the more advanced [GPT-4o model](https://openai.com/index/hello-gpt-4o/), ensuring even more sophisticated and nuanced content creation.",
       ),
     );
   }
@@ -88,11 +89,11 @@ class _AreMyDataUsedForTraining extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _FaqCard(
-      question: Text(
-          'Is the content from my submitted lecture slides used for AI training?'),
+      question:
+          Text('Is the content from my submitted texts used for AI training?'),
       answer: _MarkdownAnswer(
         text:
-            "No, your submitted content is not used for AI training. Vocabmate leverages GPT models from OpenAI, which have a strong commitment to user privacy. OpenAI do not use customer-submitted data via their API to train or improve their models (Source: [API data usage policies](https://openai.com/policies/api-data-usage-policies)). Your lecture slides content is only processed to create flashcards and is not used for any other purposes, ensuring your information remains private and secure.",
+            "No, your submitted content is not used for AI training. Vocabmate leverages GPT models from OpenAI, which have a strong commitment to user privacy. OpenAI do not use customer-submitted data via their API to train or improve their models (Source: [API data usage policies](https://openai.com/policies/api-data-usage-policies)). Your text content is only processed to create flashcards and is not used for any other purposes, ensuring your information remains private and secure.",
       ),
     );
   }
@@ -105,10 +106,10 @@ class _DoesItWorkWithOtherApps extends StatelessWidget {
   Widget build(BuildContext context) {
     return _FaqCard(
       question: const Text(
-          'Does Vocabmate work with other flashcard apps than Anki?'),
+          'Does Vocabmate work with other Flashcard Apps than Anki?'),
       answer: MarkdownBody(
         data:
-            "As of now, Vocabmate is designed specifically to work with the [Anki](https://apps.ankiweb.net) flashcard app and we currently have no plans to extend support to other flashcard applications. This is to ensure the highest level of integration and functionality with [Anki](https://apps.ankiweb.net), thus providing an optimal user experience. We encourage users to utilize Vocabmate with the [Anki](https://apps.ankiweb.net) app for the best performance and reliability.",
+            "Yes! As Vocabmate creates Flashcards in CSV-Format, the flashcards can be imported into most known flashcard applications. However, we encourage users to utilize Vocabmate with the [Anki](https://apps.ankiweb.net) app for the best performance and reliability.",
         styleSheet: MarkdownStyleSheet(
           a: _getAnswerTextStyle(context).copyWith(
             decoration: TextDecoration.underline,
@@ -134,9 +135,9 @@ class _CurrentLimits extends StatelessWidget {
 
 * Firstly, remember that AI, including Vocabmate, is not infallible. There will be occasional errors in the generated flashcards, as with any AI technology. Always review your flashcards for accuracy.
 
-* Secondly, GPT models, at the current stage of development, aren't particularly adept at handling mathematical equations and formulas. This might impact the quality of flashcards in these areas.
+* Secondly, GPT models, at the current stage of development, aren't able to fully understand every language to the same degree. While Vocabmate supports nearly all languages, the level of support may vary depending on the language.
 
-* Lastly, for users who utilize the PDF input feature, please note that it currently only processes text. Any images, including diagrams and pictures in the PDF, will be ignored.
+* Lastly, Vocabmate is continually under development, which means, that some features might not work as expected. Some might also be added or removed without further notice. 
 
 We're continually working on refining and expanding Vocabmate's capabilities to improve your learning experience. Stay tuned for future updates and enhancements.""",
       ),
@@ -166,8 +167,40 @@ class _IsVocabmateRelatedToAnkiGPT extends StatelessWidget {
     return const _FaqCard(
       question: Text('Is Vocabmate related to AnkiGPT?'),
       answer: _MarkdownAnswer(
+          text:
+              "Yes, Vocabmate was heavily inspired by [AnkiGPT](ankigpt.help) a project by [Nils Reichard](https://www.linkedin.com/in/nilsreichardt). This is especially true for the Flutter frontend. However, the entire backend is developed and hosted independently by Lars Heimann."),
+    );
+  }
+}
+
+class _HowDoesVocabmateWork extends StatelessWidget {
+  const _HowDoesVocabmateWork();
+
+  @override
+  Widget build(BuildContext context) {
+    return const _FaqCard(
+      question: Text('How does Vocabmate work?'),
+      answer: _MarkdownAnswer(
         text:
-            "Yes, Vocabmate was heavily inspired by [AnkiGPT](ankigpt.help) a project by [Nils Reichard](https://www.linkedin.com/in/nilsreichardt)",
+            """Vocabmate is a tool that generates flashcards from the text you wish to learn. It uses the GPT-4o-mini model by OpenAI to create the flashcards. The process is simple: you submit the text you want to learn, and Vocabmate generates flashcards based on the content. You can then review and export these flashcards to [Anki](https://apps.ankiweb.net) for further study. Vocabmate is designed to streamline the flashcard creation process, making it easier and more efficient for users to learn new information. 
+            
+            On a more technical level, there are two main parts to vocabmate, the frontend and backend.
+
+            Frontend:
+            * The frontend is built using [Flutter](https://flutter.dev/) an app development Framework by Google utilizing the [Dart programming language](https://dart.dev/). It is hosted using AWS Amplify. It handles the client authentication as well as the input of the data. For the data processing, it communicates with the backend. Then showing the results.
+
+            Backend:
+            * The backend is an express web server developed using [Node.js](https://nodejs.org/en/). It is containerized and deployed to AWS.
+            * Hosting
+              * The containers are hosted on AWS infrastructure managed with terraform.
+              * The infrastructure consists of an ECS cluster with the EC2 launch type continuously deploying the latest version of the backend to two availability zones. The
+              * An Elastic Load Balancer is used to distribute requests across the instances.
+              * The data is stored in a PostgreSQL database using RDS.
+
+            Networking:
+            * The frontend communicates with the backend using a REST API.
+            * The domains are managed using Squarespace.
+            """,
       ),
     );
   }
