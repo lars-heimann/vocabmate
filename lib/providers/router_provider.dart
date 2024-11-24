@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vocabmate/pages/flashcard_page.dart';
 import 'package:vocabmate/pages/home_page.dart';
+import 'package:vocabmate/pages/imprint.dart';
 
 part 'router_provider.g.dart';
 
@@ -28,10 +29,10 @@ GoRouter router(RouterRef ref) {
           //   path: 'account',
           //   builder: (context, state) => const AccountPage(),
           // ),
-          // GoRoute(
-          //   path: 'imprint',
-          //   builder: (context, state) => const ImprintPage(),
-          // ),
+          GoRoute(
+            path: 'imprint',
+            builder: (context, state) => const ImprintPage(),
+          ),
           // GoRoute(
           //   path: 'successful-plus-payment',
           //   redirect: (context, state) {

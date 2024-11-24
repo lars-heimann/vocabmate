@@ -109,8 +109,8 @@ class _Contact extends StatelessWidget {
     return _LinksList(
       title: 'Contact',
       links: [
-        ('WhatsApp', Uri.parse('https://ankigpt.help/support')),
-        ('Email', Uri.parse('mailto:vocabmate@larsheimann.com')),
+        ('LinkedIn', Uri.parse('https://www.linkedin.com/in/larsheimann/')),
+        ('Email', Uri.parse('mailto:help@vocabmate.com')),
       ],
     );
   }
@@ -125,7 +125,7 @@ class _Product extends StatelessWidget {
       title: 'Product',
       links: [
         ('Source Code', Uri.parse('https://github.com/lars0530/vocabmate')),
-        ('Feedback', Uri.parse('mailto:vocabmate@larsheimann.com')),
+        ('Feedback', Uri.parse('mailto:feedback@vocabmate.com')),
       ],
     );
   }
@@ -158,11 +158,11 @@ class _AboutVocabmate extends StatelessWidget {
         const SizedBox(height: 12),
         const Text('Flashcards may contain incorrect information!'),
         const SizedBox(height: 12),
-        const _ClimateInformation(),
-        const SizedBox(height: 12),
+        // const _ClimateInformation(),
+        // const SizedBox(height: 12),
         const _Version(),
-        const SizedBox(height: 16),
-        const _SocialMedia(),
+        // const SizedBox(height: 16),
+        // const _SocialMedia(),
       ],
     );
   }
