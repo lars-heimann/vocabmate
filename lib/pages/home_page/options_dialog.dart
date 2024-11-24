@@ -24,11 +24,11 @@ class OptionsDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              _TargetLanguageOption(),
+              SizedBox(height: 24),
               _NumberOfCardsOption(),
               SizedBox(height: 24),
               _ModelOption(),
-              SizedBox(height: 24),
-              _TargetLanguageOption(),
             ],
           ),
         ),
