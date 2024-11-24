@@ -99,26 +99,30 @@ class FlashCardPage extends StatelessWidget {
             const SizedBox(
                 height:
                     8.0), // Add some space between the input text and the button
-            ElevatedButton.icon(
-              icon: const Icon(Icons.copy),
-              label: const Text('Copy CSV to Clipboard'),
-              onPressed: () => _copyCsvToClipboard(context, flashCards),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            const _ExportButton(),
-            const SizedBox(height: 8.0),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.save),
-              label: const Text('Save Flashcards to Database'),
-              onPressed: () => _saveFlashcards(context, flashCards),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              ),
+            Row(
+              children: [
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.copy),
+                  label: const Text('Copy CSV to Clipboard'),
+                  onPressed: () => _copyCsvToClipboard(context, flashCards),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                const _ExportButton(),
+                const SizedBox(width: 8.0),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.save),
+                  label: const Text('Save Flashcards to Vocabulary'),
+                  onPressed: () => _saveFlashcards(context, flashCards),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                  ),
+                ),
+              ],
             ),
             const Divider(height: 32.0),
             Expanded(
@@ -144,7 +148,7 @@ class _ExportButton extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Export Instructions'),
+          title: const Text('Show Export Instructions'),
           content: const Text('1. Copy the CSV to clipboard\n'
               '2. Create a new text file and paste the CSV content\n'
               '3. Save the file with a .csv extension\n'
