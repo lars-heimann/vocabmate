@@ -41,7 +41,7 @@ class _DesktopControlsView extends ConsumerWidget {
     // final isWatching = sessionId != null;
     return const Row(
       children: [
-        _ExportToAnkiButton(),
+        // _ExportToAnkiButton(),
         Expanded(child: SizedBox()),
         // const _LoadingButton(),
         // if (!isWatching) ...[
@@ -64,7 +64,7 @@ class _MobileControlsView extends ConsumerWidget {
     // final isWatching = sessionId != null;
     return const Column(
       children: [
-        _ExportToAnkiButton(),
+        // _ExportToAnkiButton(),
         SizedBox(height: 12),
         // if (!isWatching) ...[
         _OptionsButton(),
