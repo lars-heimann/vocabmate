@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/flashcard_model.dart';
 import '../widgets/flashcard_widget.dart';
 import '../widgets/input_text_widget.dart';
@@ -28,6 +29,30 @@ class FlashCardPage extends StatelessWidget {
         SnackBar(content: Text('Failed to copy CSV to clipboard: $err')),
       );
     });
+  }
+
+  void _showAnkiExportExplanation(
+      BuildContext context, List<FlashCard> flashCards) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Export Instructions'),
+          content: const Text('1. Copy the CSV to clipboard\n'
+              '2. Create a new text file and paste the CSV content\n'
+              '3. Save the file with a .csv extension\n'
+              '4. Import the file into Anki using the Anki desktop app (File -> Import)'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _saveFlashcards(
@@ -83,16 +108,18 @@ class FlashCardPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            // const SizedBox(height: 8.0),
-            // ElevatedButton.icon(
-            //   icon: const Icon(Icons.save),
-            //   label: const Text('Save Flashcards to Database'),
-            //   onPressed: () => _saveFlashcards(context, flashCards),
-            //   style: ElevatedButton.styleFrom(
-            //     padding:
-            //         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            //   ),
-            // ),
+            const SizedBox(height: 8.0),
+            const _ExportButton(),
+            const SizedBox(height: 8.0),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.save),
+              label: const Text('Save Flashcards to Database'),
+              onPressed: () => _saveFlashcards(context, flashCards),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+            ),
             const Divider(height: 32.0),
             Expanded(
               child: ListView.builder(
@@ -104,6 +131,45 @@ class FlashCardPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ExportButton extends ConsumerWidget {
+  const _ExportButton();
+
+  void _showAnkiExportExplanation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Export Instructions'),
+          content: const Text('1. Copy the CSV to clipboard\n'
+              '2. Create a new text file and paste the CSV content\n'
+              '3. Save the file with a .csv extension\n'
+              '4. Import the file into Anki using the Anki desktop app (File -> Import)'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ElevatedButton.icon(
+      icon: const Icon(Icons.import_export),
+      label: const Text('Export instructions'),
+      onPressed: () => _showAnkiExportExplanation(context),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );
   }
