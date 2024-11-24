@@ -6,9 +6,10 @@ class InputTextField extends StatelessWidget {
     super.key,
     required this.controller,
     this.isEnabled = true,
-    this.hintText =
-        '''Copy the text you want to learn and paste it into this text field.
-Supports all languages.''',
+    this.hintText = '''Create your own Language Flashcards in three simple steps
+Step 1 - Copy the text you want to create flashcards for and paste it into this text field.
+Step 2 - Select the explanation language through the options button.
+Step 3 - Generate your new set of vocabulary cards.''',
   });
 
   final TextEditingController controller;
