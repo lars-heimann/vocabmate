@@ -168,7 +168,7 @@ class _IsVocabmateRelatedToAnkiGPT extends StatelessWidget {
       question: Text('Is Vocabmate related to AnkiGPT?'),
       answer: _MarkdownAnswer(
           text:
-              "Yes, Vocabmate was heavily inspired by [AnkiGPT](ankigpt.help) a project by [Nils Reichard](https://www.linkedin.com/in/nilsreichardt). This is especially true for the Flutter frontend. However, the entire backend is developed and hosted independently by Lars Heimann."),
+              "Yes, Vocabmate draws significant inspiration from [AnkiGPT](https://ankigpt.help), a project by [Nils Reichardt](https://www.linkedin.com/in/nilsreichardt). While the frontend of Vocabmate, built using Flutter, shares major similarities with AnkiGPT, the backend infrastructure is entirely developed and maintained independently by Lars Heimann."),
     );
   }
 }
@@ -182,25 +182,29 @@ class _HowDoesVocabmateWork extends StatelessWidget {
       question: Text('How does Vocabmate work?'),
       answer: _MarkdownAnswer(
         text:
-            """Vocabmate is a tool that generates flashcards from the text you wish to learn. It uses the GPT-4o-mini model by OpenAI to create the flashcards. The process is simple: you submit the text you want to learn, and Vocabmate generates flashcards based on the content. You can then review and export these flashcards to [Anki](https://apps.ankiweb.net) for further study. Vocabmate is designed to streamline the flashcard creation process, making it easier and more efficient for users to learn new information. 
-            
-            On a more technical level, there are two main parts to vocabmate, the frontend and backend.
+            """Vocabmate is a tool designed to generate flashcards from the text you wish to learn. It leverages the GPT-4o-mini model by OpenAI to create these flashcards. The process is straightforward: you submit the text you want to learn, and Vocabmate generates flashcards based on that content. You can then review and export these flashcards to [Anki](https://apps.ankiweb.net) for further study. Vocabmate aims to streamline the flashcard creation process, making it easier and more efficient for users to learn new information.
+        
+On a more technical level, Vocabmate consists of two main components: the frontend and the backend.
 
-            Frontend:
-            * The frontend is built using [Flutter](https://flutter.dev/) an app development Framework by Google utilizing the [Dart programming language](https://dart.dev/). It is hosted using AWS Amplify. It handles the client authentication as well as the input of the data. For the data processing, it communicates with the backend. Then showing the results.
+**Frontend:**
+* Built using [Flutter](https://flutter.dev/), an app development framework by Google, utilizing the [Dart programming language](https://dart.dev/).
+* Hosted using AWS Amplify.
+* Communicates with the backend for data processing and displays the results.
 
-            Backend:
-            * The backend is an express web server developed using [Node.js](https://nodejs.org/en/). It is containerized and deployed to AWS.
-            * Hosting
-              * The containers are hosted on AWS infrastructure managed with terraform.
-              * The infrastructure consists of an ECS cluster with the EC2 launch type continuously deploying the latest version of the backend to two availability zones. The
-              * An Elastic Load Balancer is used to distribute requests across the instances.
-              * The data is stored in a PostgreSQL database using RDS.
+**Backend:**
+* An [Express](https://expressjs.com/) web server developed using [Node.js](https://nodejs.org/en/) of the [Typescript](https://www.typescriptlang.org/) Flavour.
+* Containerized and deployed to AWS.
+* Hosting:
+  * Containers are hosted on AWS infrastructure managed with [OpenTofu](https://opentofu.org/).
+  * Infrastructure consists of an ECS cluster with the EC2 launch type, continuously deploying the latest version of the backend to two availability zones.
+  * An Elastic Load Balancer distributes requests across instances.
 
-            Networking:
-            * The frontend communicates with the backend using a REST API.
-            * The domains are managed using Squarespace.
-            """,
+**Networking:**
+* The frontend communicates with the backend using a REST API.
+* Domains are managed using [Squarespace](https://domains.squarespace.com/de/).
+
+Input on the architecture and design of Vocabmate is always welcome, as we strive to improve the tool and provide the best possible user experience.
+        """,
       ),
     );
   }
