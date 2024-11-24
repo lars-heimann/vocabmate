@@ -5,6 +5,7 @@ import 'package:vocabmate/pages/home_page/drawer.dart';
 import 'package:vocabmate/pages/home_page/faq_section.dart';
 import 'package:vocabmate/pages/home_page/input_section.dart';
 import 'package:vocabmate/pages/home_page/pricing_section.dart';
+import 'package:vocabmate/widgets/dev_banner.dart';
 import 'package:vocabmate/widgets/extensions.dart';
 import 'package:vocabmate/widgets/footer.dart';
 import '../services/openai_service.dart';
@@ -117,6 +118,7 @@ class _VocabMateHomePageState extends State<VocabMateHomePage> {
                   ),
                   child: const Column(
                     children: [
+                      DevelopmentBanner(),
                       InputSection(),
                       SizedBox(height: 50),
                       SizedBox(height: 100),
