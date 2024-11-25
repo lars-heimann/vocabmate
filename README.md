@@ -72,13 +72,17 @@ Input on the architecture and design of Vocabmate is always welcome, as we striv
 ## Developing
 ### Getting Started
 
-1. activate builder
+1. download dependencies
+```bash
+flutter pub upgrade
+```
+2. activate builder
 ```bash
 dart run build_runner watch
 ```
-2. run in chrome browser
+3. run in chrome browser
 ```bash
 flutter run -d chrome
 ```
-3. make changes
-4. hot reload by pressing r in `flutter run`-terminal
+4. make changes
+5. hot reload by pressing r in `flutter run`-terminal
