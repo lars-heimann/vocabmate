@@ -124,7 +124,7 @@ class _Product extends StatelessWidget {
     return _LinksList(
       title: 'Product',
       links: [
-        ('Source Code', Uri.parse('https://github.com/lars0530/vocabmate')),
+        ('Source Code', Uri.parse('https://github.com/lars-heimann/vocabmate')),
         ('Feedback', Uri.parse('mailto:feedback@vocabmate.com')),
       ],
     );
@@ -209,7 +209,7 @@ class _SocialMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SocialMediaIconButton(
       platform: SocialMediaPlatform.github,
-      url: 'https://github.com/lars0530/vocabmate',
+      url: 'https://github.com/lars-heimann/vocabmate',
     );
   }
 }

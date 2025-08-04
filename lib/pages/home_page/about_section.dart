@@ -165,7 +165,7 @@ class _SocialMedias extends StatelessWidget {
     return const Row(
       children: [
         SocialMediaIconButton(
-          url: 'https://github.com/lars0530/',
+          url: 'https://github.com/lars-heimann/',
           platform: SocialMediaPlatform.github,
         ),
         SizedBox(width: 12),
